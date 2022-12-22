@@ -6,4 +6,4 @@
     3. [Commande Membre](https://github.com/flojucv/MerseGang/blob/fa3fb68c6f2d88629ae518754d29d5a9e85ca5bf/Commandes/Membre)
     4. [Commande Mersecoins *C'est la partie discord du bot qui gere l'économie*](https://github.com/flojucv/MerseGang/blob/fa3fb68c6f2d88629ae518754d29d5a9e85ca5bf/Commandes/Mersecoins)
 2. [Partie Twitch](https://github.com/flojucv/MerseGang/blob/fa3fb68c6f2d88629ae518754d29d5a9e85ca5bf/CommandesTwitch)
-3. [Partie "Site"]("https://github.com/flojucv/MerseGang/blob/fa3fb68c6f2d88629ae518754d29d5a9e85ca5bf/MerseGang site shop")
+3. [Partie "Site"](https://github.com/flojucv/MerseGang/blob/fa3fb68c6f2d88629ae518754d29d5a9e85ca5bf/MerseGang site shop)
