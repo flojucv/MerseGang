@@ -1,0 +1,20 @@
+{
+  "name": "mersegang",
+  "version": "1.0.10",
+  "description": "Bot du grand mersedi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "flojucv",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.2",
+    "fs": "^0.0.1-security",
+    "moment": "^2.29.4",
+    "ms": "^2.1.3",
+    "tmi.js": "^1.8.5",
+    "twitchrequest": "^1.4.9"
+  }
+}

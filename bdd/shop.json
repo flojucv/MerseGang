@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Grade famous",
+        "description": "Un grade pour montrer toute ta richesse.",
+        "prix": 7500
+    },
+    {
+        "name": "Choix du champion",
+        "description": "Tu a le droit de choisir qui je joue ! alors fait moi sortir mon meilleur moji ou non.",
+        "prix": 3000
+    },
+    {
+        "name": "Balance ton ult",
+        "description": "Fait moi gacher mes meilleurs ult  pour nous assurer la win",
+        "prix": 300
+    },
+    {
+        "name": "VIP",
+        "description": "Permet de devenir VIP sur la chaine Twitch",
+        "prix": 7000
+    }
+]

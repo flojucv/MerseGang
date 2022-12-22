@@ -1,0 +1,47 @@
+/*----------DESIGN PAGE----------*/
+@import url('https://fonts.googleapis.com/css2?family=Amaranth&display=swap');
+
+body {
+    position: absolute;
+    font-family: 'Amaranth', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    background: linear-gradient(45deg, #FC466B, #3F5EFB);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.box {
+    display: flex;
+    background: rgba(255, 255, 255, .3);
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: 20px;
+    border-left: 1px solid rgba(255, 255, 255, .3);
+    border-top: 1px solid rgba(255, 255, 255, .3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    -moz-backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, .2);
+    text-align: center;
+    align-items: center;
+    color: white;
+    width: fit-content;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 10px;
+}
