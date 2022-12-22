@@ -9,8 +9,8 @@
   "author": "flojucv",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.6.0",
-    "dotenv": "^16.0.2",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
     "fs": "^0.0.1-security",
     "moment": "^2.29.4",
     "ms": "^2.1.3",
