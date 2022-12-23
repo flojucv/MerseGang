@@ -17,3 +17,4 @@
 * dotenv
 * tmi.js
 * twitchrequest
+* moment
