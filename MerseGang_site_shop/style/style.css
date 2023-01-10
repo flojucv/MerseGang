@@ -45,3 +45,65 @@ th, td {
     border: 1px solid white;
     padding: 10px;
 }
+
+/*----------NAV BAR----------*/
+.navbar {
+    background: rgba(255, 255, 255, .3);
+    position: absolute;
+    left: 0px;
+    padding-left: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 99%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border-left: 1px solid rgba(255, 255, 255, .3);
+    border-top: 1px solid rgba(255, 255, 255, .3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    -moz-backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, .2);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar .logo {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.navbar img {
+    width: 100px;
+    cursor: pointer;
+}
+
+.navbar .nav-links ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar .nav-links ul li {
+    margin: 0 25px;
+    background: transparent;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, .3);
+    border-top: 1px solid rgba(255, 255, 255, .3);
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    -moz-backdrop-filter: blur(5px);
+    padding: 1rem;
+    box-shadow: 4px 4px 60px rgba(0, 0, 0, .2);
+}
+
+.navbar .nav-links ul li a.active {
+    color: #FC466B;
+    font-weight: 600;
+}

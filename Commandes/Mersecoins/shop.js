@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args) => {
         const embedShop = new EmbedBuilder()
             .setAuthor({ name: "Bot by flojucv", iconURL: "https://media.discordapp.net/attachments/894234723747004426/995231775762690138/logo512x512.png", url: "https://discord.gg/p2QC3NQSmG" })
             .setFooter({ text: "MerseCoins SYSTEM" })
-            .setColor("Purple")
+            .setColor("#5B3EBA")
             .setDescription("Voici la liste de tout ce que vous pouvez achetez avec des MerseCoins.")
             .setTitle("SHOP")
             .setURL("https://flojucvsitewebcreators.on.drv.tw/MerseGang%20site%20shop/")

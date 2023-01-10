@@ -1,23 +1,5 @@
-const fs = require("fs");
-
 module.exports.run = async(client, channel, user, message, self, args) => {
-    let messageHelp = "";
-
-    fs.readdir("./CommandesTwitch/", async (error, f) => {
-        if(error) return console.log(error);
-    
-        let commandes = f.filter(f => f.split(".").pop() === "js");
-        if(commandes.length <= 0) 
-            messageHelp = "💠| Il n'y a pas de commandes."
-
-        await commandes.forEach((f) => {
-            let commande = require(`../CommandesTwitch/${f}`);
-            
-            messageHelp += `${commande.help.name}| ${commande.help.description}, `
-        })
-        
-        client.action(channel, messageHelp);
-    })
+    client.action(channel, "Si tu veut voir les commandes rend toi sur le discord (&helptwitch) ou regarde via se lien : https://flojucvsitewebcreators.on.drv.tw/MerseGang%20site%20shop/help.html ");
 }
 
 module.exports.help = {
