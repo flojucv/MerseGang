@@ -12,6 +12,7 @@ const client = new Discord.Client({
 });
 const fs = require('fs');
 const config = require("./bdd/config.json");
+const { strRandom, getRandomInt } = require('./function/merseCoinsFunction');
 require('dotenv').config();
 
 client.login(process.env.Token)
@@ -152,12 +153,26 @@ fs.readdir("./CommandesTwitch/", (error, f) => {
     console.log("└─────────────────────────┴────┘")
 })
 
-
+let motDrop = "";
+let motDropEnable = false;
 
 twitchBot.on("chat", (channel, user, message, self) => {
     if (self) return;
     if (user['display-name'] === "MerseGang") return;
     if (channel != "#mersedi_") return;
+
+    if(motDropEnable === true) {
+        if(message === motDrop) {
+            motDropEnable = false;
+            const coinsAdd = getRandomInt(50, 101);
+            if(bddCoins[user.username] != undefined) {
+                bddCoins[user.username] += coinsAdd;
+                saveBdd("coins", bddCoins);
+                twitchBot.action(channel, `${user.username} a récuperer le drop !`);
+            }
+        }
+    }
+    
     if (!message.startsWith(prefix)) return;
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
@@ -248,6 +263,7 @@ const twitch = new Client({
 });
 
 let intervalMerseCoincs;
+let intervalDrop;
 
 // /-----------------AUTO TWITCH-------------------\ \\
 twitch.on("live", streamData => {
@@ -271,9 +287,21 @@ twitch.on("live", streamData => {
 
 });
 
+intervalDrop = setInterval(()=> {
+    motDrop = strRandom({
+        includeUpperCase: true,
+        includeNumbers: true,
+        length: 10,
+        startsWithLowerCase: true
+    })
+    twitchBot.say(config.channels[0], `/announce Un drop vient de tomber soit le premier a taper se mot : ${motDrop}`);
+    motDropEnable = true;
+    console.log(`Drop lancé : mot du drop : ${motDrop}`)
+}, ms(`30s`))//${getRandomInt(15, 31)}m
+
 twitch.on("unlive", streamData => {
     console.log("Le live de mersedi c'est arrêter.");
-    twitchBot.action("La collecte de point c'est arreter.");
+    twitchBot.action(config.channels[0], "La collecte de point c'est arreter.");
     clearInterval(intervalMerseCoincs);
 })
 
