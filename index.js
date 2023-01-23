@@ -163,12 +163,12 @@ twitchBot.on("chat", (channel, user, message, self) => {
 
     if(motDropEnable === true) {
         if(message === motDrop) {
-            motDropEnable = false;
             const coinsAdd = getRandomInt(50, 101);
             if(bddCoins[user.username] != undefined) {
+                motDropEnable = false;
                 bddCoins[user.username] += coinsAdd;
                 saveBdd("coins", bddCoins);
-                twitchBot.action(channel, `${user.username} a récuperer le drop !`);
+                twitchBot.action(channel, `${user.username} a récuperer le drop ! il/elle gagne ${coinsAdd} MerseCoins`);
             }
         }
     }
