@@ -12,6 +12,7 @@ const client = new Discord.Client({
 });
 const fs = require('fs');
 const config = require("./bdd/config.json");
+const bddQuestion = require("./bdd/quizz.json");
 const { strRandom, getRandomInt } = require('./function/merseCoinsFunction');
 require('dotenv').config();
 
@@ -154,25 +155,53 @@ fs.readdir("./CommandesTwitch/", (error, f) => {
 })
 
 let motDrop = "";
-let motDropEnable = false;
+let unEvent = false;
+let typeEvent = "";
+let uneQuestion;
+let propositionsEnable = false;
 
 twitchBot.on("chat", (channel, user, message, self) => {
     if (self) return;
     if (user['display-name'] === "MerseGang") return;
     if (channel != "#mersedi_") return;
 
-    if(motDropEnable === true) {
-        if(message === motDrop) {
-            const coinsAdd = getRandomInt(50, 101);
-            if(bddCoins[user.username] != undefined) {
-                motDropEnable = false;
-                bddCoins[user.username] += coinsAdd;
-                saveBdd("coins", bddCoins);
-                twitchBot.action(channel, `${user.username} a récuperer le drop ! il/elle gagne ${coinsAdd} MerseCoins`);
-            }
+    if (unEvent === true) {
+        switch(typeEvent) {
+            case "drop" :
+                if (message === motDrop) {
+                    const coinsAdd = getRandomInt(50, 101);
+                    if (bddCoins[user.username] != undefined) {
+                        unEvent = false;
+                        bddCoins[user.username] += coinsAdd;
+                        saveBdd("coins", bddCoins);
+                        twitchBot.action(channel, `${user.username} a récuperer le drop ! il/elle gagne ${coinsAdd} MerseCoins`);
+                    }
+                }
+                break;
+            case "question":
+                if(message.toLowerCase() === uneQuestion.reponse.toLowerCase()) {
+                    if(!propositionsEnable) {
+                        const coinsAdd = getRandomInt(50, 101);
+                        if(bddCoins[user.username] != undefined) {
+                            unEvent = false;
+                            bddCoins[user.username] += coinsAdd;
+                            saveBdd("coins", bddCoins);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins`);
+                        }
+                    } else {
+                        const coinsAdd = getRandomInt(25, 51);
+                        if(bddCoins[user.username] != undefined) {
+                            unEvent = false;
+                            bddCoins[user.username] += coinsAdd;
+                            saveBdd("coins", bddCoins);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins`)
+                        }
+                    }
+                }
+                break;
         }
     }
-    
+
     if (!message.startsWith(prefix)) return;
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
@@ -263,7 +292,7 @@ const twitch = new Client({
 });
 
 let intervalMerseCoincs;
-let intervalDrop;
+let intervalEvent;
 
 // /-----------------AUTO TWITCH-------------------\ \\
 twitch.on("live", streamData => {
@@ -283,26 +312,44 @@ twitch.on("live", streamData => {
             }
         })
     }, ms("1m"));
-
-
+    
+    intervalEvent = setInterval(() => {
+        let event = ["drop", "question"];
+        switch (event[Math.floor(Math.random() * event.length)]) {
+            case "drop" :
+                typeEvent = "drop";
+                motDrop = strRandom({
+                    includeUpperCase: true,
+                    includeNumbers: true,
+                    length: 10,
+                    startsWithLowerCase: true
+                })
+                twitchBot.say(config.channels[0], `/announce Un drop vient de tomber soit le premier a taper se mot : ${motDrop}`);
+                unEvent = true;
+                break;
+            case "question" :
+                typeEvent = "question";
+                uneQuestion = bddQuestion[Math.floor(Math.random()* bddQuestion.length)];
+                twitchBot.say(config.channels[0], `/announce ${uneQuestion.question}`);
+                unEvent = true;
+                setTimeout(() => {
+                    if(unEvent) {
+                        propositionsEnable = true;
+                        twitchBot.say(config.channels[0], `/announce Personne n'a trouver la réponse, voici un rappelle de la question : ${uneQuestion.question} et voici les propositions : 1| ${uneQuestion.propositions[0]}, 2| ${uneQuestion.propositions[1]}, 3| ${uneQuestion.propositions[2]}, 4| ${uneQuestion.propositions[3]}`)
+                    }
+                }, ms("2m"));
+                break;
+        }
+    }, ms(`${getRandomInt(15, 31)}m`))
 });
 
-intervalDrop = setInterval(()=> {
-    motDrop = strRandom({
-        includeUpperCase: true,
-        includeNumbers: true,
-        length: 10,
-        startsWithLowerCase: true
-    })
-    twitchBot.say(config.channels[0], `/announce Un drop vient de tomber soit le premier a taper se mot : ${motDrop}`);
-    motDropEnable = true;
-    console.log(`Drop lancé : mot du drop : ${motDrop}`)
-}, ms(`30s`))//${getRandomInt(15, 31)}m
+
 
 twitch.on("unlive", streamData => {
     console.log("Le live de mersedi c'est arrêter.");
     twitchBot.action(config.channels[0], "La collecte de point c'est arreter.");
     clearInterval(intervalMerseCoincs);
+    clearInterval(intervalEvent);
 })
 
 
