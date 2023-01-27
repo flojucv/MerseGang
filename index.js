@@ -123,7 +123,7 @@ twitchBot.cooldowns = new Map();
  * @param {String} prmMessage Message a envoyez dans le chat twitch
  */
 module.exports.sendMsgTwitch = function (prmMessage) {
-    twitchBot.say(config.channels[0], prmMessage);
+    twitchBot.action(config.channels[0], prmMessage);
 }
 
 
@@ -324,18 +324,18 @@ twitch.on("live", streamData => {
                     length: 10,
                     startsWithLowerCase: true
                 })
-                twitchBot.say(config.channels[0], `/announce Un drop vient de tomber soit le premier a taper se mot : ${motDrop}`);
+                twitchBot.action(config.channels[0], `Un drop vient de tomber soit le premier a taper se mot : ${motDrop}`);
                 unEvent = true;
                 break;
             case "question" :
                 typeEvent = "question";
                 uneQuestion = bddQuestion[Math.floor(Math.random()* bddQuestion.length)];
-                twitchBot.say(config.channels[0], `/announce ${uneQuestion.question}`);
+                twitchBot.action(config.channels[0], `${uneQuestion.question}`);
                 unEvent = true;
                 setTimeout(() => {
                     if(unEvent) {
                         propositionsEnable = true;
-                        twitchBot.say(config.channels[0], `/announce Personne n'a trouver la réponse, voici un rappelle de la question : ${uneQuestion.question} et voici les propositions : 1| ${uneQuestion.propositions[0]}, 2| ${uneQuestion.propositions[1]}, 3| ${uneQuestion.propositions[2]}, 4| ${uneQuestion.propositions[3]}`)
+                        twitchBot.action(config.channels[0], `Personne n'a trouver la réponse, voici un rappelle de la question : ${uneQuestion.question} et voici les propositions : 1| ${uneQuestion.propositions[0]}, 2| ${uneQuestion.propositions[1]}, 3| ${uneQuestion.propositions[2]}, 4| ${uneQuestion.propositions[3]}`)
                     }
                 }, ms("2m"));
                 break;
