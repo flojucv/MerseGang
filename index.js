@@ -242,7 +242,7 @@ twitchBot.on("chat", (channel, user, message, self) => {
             cmd.run(twitchBot, channel, user, message, self, args);
             break;
         case "moderator":
-            if (user["mod"] === false) return twitchBot.action(channel, `❌| ${user["username"]}, Vous n'avez pas la permissions d'utilisez cette commande.`);
+            if (user["mod"] === false && user["username"] != "mersedi_") return twitchBot.action(channel, `❌| ${user["username"]}, Vous n'avez pas la permissions d'utilisez cette commande.`);
             cmd.run(twitchBot, channel, user, message, self, args);
             break;
         case false:
@@ -250,7 +250,6 @@ twitchBot.on("chat", (channel, user, message, self) => {
             break;
         default:
             return console.log("[ERROR TWITCH] PERMISSION CASE DEFAULT");
-
     }
 })
 
