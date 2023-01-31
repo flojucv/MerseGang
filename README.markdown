@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">MerseGang</h1>
+# <center> MerseGang </center>
 
 1. [Partie Discord](https://github.com/flojucv/MerseGang/blob/master/Commandes)
     1. [Event *Permet la detection de message ou de reaction etc*](https://github.com/flojucv/MerseGang/blob/master/Events)
