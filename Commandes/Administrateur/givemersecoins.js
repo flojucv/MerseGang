@@ -11,7 +11,6 @@ module.exports.run = async(client, message, args) => {
     if(!target) return message.channel.send("❌| Vous n'avez pas mentionner d'utilisateur.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
 
     if(!args[1] || isNaN(args[1])) return message.channel.send("❌| Vous n'avez pas renseignez de nombre.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
-    if(args[1] < 1) return message.channel.send("❌| Votre nombre doit être supérieur a 0").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
 
     const pseudo = bddLink[target.user.tag];
     if (bddCoins[pseudo] === undefined)
@@ -26,7 +25,6 @@ module.exports.runSlash = async(client, interaction) => {
 
     const target = interaction.options.getUser("user");
     const nombre = interaction.options.getNumber("nombre");
-    if(nombre < 1) return interaction.reply({content: "❌| Votre nombre doit être supérieur a 0", ephemeral: true});
 
     const pseudo = bddLink[target.tag];
     
@@ -55,7 +53,6 @@ module.exports.help = {
             description: "Le nombre de merseCoins que vous souhaitez ajoutée a l'utilisateur.",
             type: 10,
             required: true,
-            minValue: 1
         }
         
     ]

@@ -1,10 +1,10 @@
 const bddCoins = require("../bdd/coins.json");
 
 module.exports.run = async(client, channel, user, message, self, args) => {
-    if(bddCoins[user['display-name']] === undefined) {
+    if(bddCoins[user['display-name'].toLowerCase()] === undefined) {
         client.action(channel, `Vous avez 0 MerseCoins`);
     }else {
-        client.action(channel, `Vous avez ${bddCoins[user['display-name']]} MerseCoins`);
+        client.action(channel, `Vous avez ${bddCoins[user['display-name'].toLowerCase()]} MerseCoins`);
     }
 }
 
