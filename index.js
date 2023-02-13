@@ -186,7 +186,7 @@ twitchBot.on("chat", (channel, user, message, self) => {
                             unEvent = false;
                             bddCoins[user.username] += coinsAdd;
                             saveBdd("coins", bddCoins);
-                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins`);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`);
                         }
                     } else {
                         const coinsAdd = getRandomInt(25, 51);
