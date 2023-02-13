@@ -4,6 +4,7 @@ const { saveBdd } = require("../function/bdd.js");
 
 module.exports.run = async(client, channel, user, message, self, args) => {
     if(bddPrediction.termine) return client.action(channel, "❌| Il n'y a pas de prédiction en cours.");
+    if(bddPrediction.inscription) return client.action(channel, "❌| Les inscriptions sont terminés.");
 
     if(!args[0]) return client.action(channel, "❌| Vous n'avez pas mit votre choix 'choix1' ou 'choix2'");
     if(!(args[0] === "choix1" || args[0] === "choix2")) return client.action(channel, "❌| Vous n'avez pas mit votre choix 'choix1' ou 'choix2'");

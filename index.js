@@ -192,6 +192,7 @@ twitchBot.on("chat", (channel, user, message, self) => {
                         const coinsAdd = getRandomInt(25, 51);
                         if(bddCoins[user.username] != undefined) {
                             unEvent = false;
+                            propositionsEnable	= false;
                             bddCoins[user.username] += coinsAdd;
                             saveBdd("coins", bddCoins);
                             twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins`)
