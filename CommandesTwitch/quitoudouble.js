@@ -16,7 +16,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 
     switch(definirChoix) {
         case 'gagner' :
-            coinsBdd += (mise*2);
+            coinsBdd[user.username] += (mise*2);
             saveBdd("coins", coinsBdd);
             return client.action(channel, `✅| Vous avez gagné ! Tu as gagné ${mise*2} MerseCoins`);
         case 'perdue' :
