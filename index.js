@@ -204,11 +204,13 @@ twitchBot.on("chat", (channel, user, message, self) => {
     }
 
     if (!message.startsWith(prefix)) return;
-    if(stream === false) return;
+    
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
     const cmd = twitchBot.commands.get(commande);
-
+    console.log(commande)
+    console.log(stream === false && commande != "forcestream")
+    if(stream === false && commande != "forcestream") return;
     if (!cmd) return;
 
 
