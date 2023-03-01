@@ -26,8 +26,8 @@ module.exports.runSlash = async(client, interaction) => {
 }
 
 module.exports.help = {
-    name: "removelink",
-    aliases: ['removeLink'],
+    name: "removelinkdiscord",
+    aliases: ['removeLinkDiscord'],
     category: "administrateur",
     description: "Permet de supprimer un lien entre un compte twitch et discord.",
     usage: "<@user>",
