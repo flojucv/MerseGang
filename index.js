@@ -208,8 +208,6 @@ twitchBot.on("chat", (channel, user, message, self) => {
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
     const cmd = twitchBot.commands.get(commande);
-    console.log(commande)
-    console.log(stream === false && commande != "forcestream")
     if(stream === false && commande != "forcestream") return;
     if (!cmd) return;
 
@@ -305,6 +303,7 @@ twitch.on("live", streamData => {
     twitchBot.action(config.channels[0], "La collecte de point a démarer.");
     twitch.
     intervalMerseCoincs = setInterval(() => {
+        console.log("───────────────────────────────")
         listeUser.forEach(username => {
             if (!bddCoins[username]) {
                 bddCoins[username] = 1;
@@ -316,6 +315,7 @@ twitch.on("live", streamData => {
                 console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
             }
         })
+        console.log("───────────────────────────────")
     }, ms("1m"));
     
     intervalEvent = setInterval(() => {
@@ -371,20 +371,8 @@ module.exports.researchID = async function (prmTag) {
 
 module.exports.forceStream = async function () {
     twitchBot.action(config.channels[0], "La collecte de point a démarer.");
-    intervalMerseCoincs = setInterval(() => {
-        listeUser.forEach(username => {
-            if (!bddCoins[username]) {
-                bddCoins[username] = 1;
-                saveBdd("coins", bddCoins);
-                console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
-            } else {
-                bddCoins[username]++;
-                saveBdd("coins", bddCoins);
-                console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
-            }
-        })
-    }, ms("1m"));
-    
+    stream = true;
+
     intervalEvent = setInterval(() => {
         let event = ["drop", "question"];
         switch (event[Math.floor(Math.random() * event.length)]) {
@@ -413,4 +401,20 @@ module.exports.forceStream = async function () {
                 break;
         }
     }, ms(`${getRandomInt(15, 31)}m`))
+
+    intervalMerseCoincs = setInterval(() => {
+        console.log("───────────────────────────────\n        LANCEMENT FORCER        ")
+        listeUser.forEach(username => {
+            if (!bddCoins[username]) {
+                bddCoins[username] = 1;
+                saveBdd("coins", bddCoins);
+                console.log(`${username} à gagnez 1 coins | ${bddCoins[username]}`);
+            } else {
+                bddCoins[username]++;
+                saveBdd("coins", bddCoins);
+                console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
+            }
+        })
+        console.log("───────────────────────────────")
+    }, ms("1m"));
 }
