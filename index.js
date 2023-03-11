@@ -303,7 +303,14 @@ twitch.on("live", streamData => {
     twitchBot.action(config.channels[0], "La collecte de point a démarer.");
     twitch.
     intervalMerseCoincs = setInterval(() => {
-        console.log("───────────────────────────────")
+        const date = new Date();
+        var jour = date.getDate();
+        var mois = date.getMonth() + 1;
+        var annee = date.getFullYear();
+        var heure = date.getHours() + 2;
+        var minute = date.getMinutes();
+        console.log("───────────────────────────────");
+        console.log(`${jour}/${mois}/${annee}  ${heure}:${minute}`);
         listeUser.forEach(username => {
             if (!bddCoins[username]) {
                 bddCoins[username] = 1;
@@ -315,7 +322,7 @@ twitch.on("live", streamData => {
                 console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
             }
         })
-        console.log("───────────────────────────────")
+        console.log("───────────────────────────────");
     }, ms("1m"));
     
     intervalEvent = setInterval(() => {
