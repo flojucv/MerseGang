@@ -22,7 +22,7 @@ module.exports.runSlash = async(client, interaction) => {
     const article = interaction.options.getNumber("numero");
     if(article > bddShop.length) return interaction.reply({content: `❌| Votre numéro doit être compris entre 1 et ${bddShop.length}`, ephemeral: true});
     
-    number = parseInt(args[0]) -1;
+    number = parseInt(article) -1;
     bddShop.splice(number, 1);
     saveBdd("shop", bddShop);
     interaction.reply({content: "✅| L'article a été supprimer", ephemeral: true});
