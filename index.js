@@ -398,6 +398,7 @@ async function streamEventAndPoint() {
                 uneQuestion = bddQuestion[Math.floor(Math.random()* bddQuestion.length)];
                 twitchBot.action(config.channels[0], `${uneQuestion.question}`);
                 unEvent = true;
+                console.log(`Question : ${uneQuestion.question}\nRéponse : ${uneQuestion.reponse}\nAlias : ${uneQuestion.alias}`);
                 setTimeout(() => {
                     if(unEvent) {
                         propositionsEnable = true;
