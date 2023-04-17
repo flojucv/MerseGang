@@ -9,7 +9,8 @@
             "Highlander"
         ],
         "reponse": "Highlander",
-        "anecdote": "« A Kind of Magic » est un album du groupe Queen, sorti en juin 1986, dont six de ses neuf morceaux sont utilisés dans le film « Highlander »."
+        "anecdote": "« A Kind of Magic » est un album du groupe Queen, sorti en juin 1986, dont six de ses neuf morceaux sont utilisés dans le film « Highlander ».",
+        "alias": []
     },
     {
         "id": 2,
@@ -21,7 +22,8 @@
             "Pakistan"
         ],
         "reponse": "Népal",
-        "anecdote": "Katmandou est la capitale politique et religieuse du Népal ainsi que la plus grande ville du pays."
+        "anecdote": "Katmandou est la capitale politique et religieuse du Népal ainsi que la plus grande ville du pays.",
+        "alias": []
     },
     {
         "id": 3,
@@ -33,7 +35,8 @@
             "Jerry"
         ],
         "reponse": "Michael",
-        "anecdote": "Dans le film « Michael », deux journalistes enquêtent sur un soi-disant vrai ange vivant chez une dame âgée."
+        "anecdote": "Dans le film « Michael », deux journalistes enquêtent sur un soi-disant vrai ange vivant chez une dame âgée.",
+        "alias": []
     },
     {
         "id": 4,
@@ -46,6 +49,8 @@
         ],
         "reponse": "Hervé Vilard",
         "anecdote": "Didier Barbelivien, Michel Fugain et Danyel Gérard ont fait partie de la liste des artistes qui ont composé pour Hervé Vilard."
+        ,
+        "alias": []
     },
     {
         "id": 5,
@@ -57,7 +62,8 @@
             "Edgar Degas"
         ],
         "reponse": "Henri Rousseau",
-        "anecdote": "Le premier portrait connu réalisé par le peintre Henri Rousseau semble être celui de sa première femme."
+        "anecdote": "Le premier portrait connu réalisé par le peintre Henri Rousseau semble être celui de sa première femme.",
+        "alias": ["rousseau"]
     },
     {
         "id": 6,
@@ -69,7 +75,8 @@
             "King-Kong"
         ],
         "reponse": "Tarzan",
-        "anecdote": "Edgar Rice Burroughs a inspiré bon nombre d'auteurs de science-fiction et de fantastique ainsi que de nombreux réalisateurs."
+        "anecdote": "Edgar Rice Burroughs a inspiré bon nombre d'auteurs de science-fiction et de fantastique ainsi que de nombreux réalisateurs.",
+        "alias": []
     },
     {
         "id": 7,
@@ -81,7 +88,8 @@
             "Treize"
         ],
         "reponse": "Zéro",
-        "anecdote": "À la roulette, lorsque le croupier donne la main, chaque joueur mise sur un numéro qu'il espère être tiré pour remporter la mise."
+        "anecdote": "À la roulette, lorsque le croupier donne la main, chaque joueur mise sur un numéro qu'il espère être tiré pour remporter la mise.",
+        "alias": ["zero", "0"]
     },
     {
         "id": 8,
@@ -93,7 +101,8 @@
             "Barbet"
         ],
         "reponse": "Basset",
-        "anecdote": "Interrompue en 1978, la série télévisée « Columbo » a été ressuscitée en 1989, toujours avec Peter Falk dans le rôle principal."
+        "anecdote": "Interrompue en 1978, la série télévisée « Columbo » a été ressuscitée en 1989, toujours avec Peter Falk dans le rôle principal.",
+        "alias": []
     },
     {
         "id": 9,
@@ -105,7 +114,8 @@
             "Giga"
         ],
         "reponse": "Bit",
-        "anecdote": "La mémoire est un composant matériel essentiel de nombreux appareils électroniques, présent dans tous les ordinateurs."
+        "anecdote": "La mémoire est un composant matériel essentiel de nombreux appareils électroniques, présent dans tous les ordinateurs.",
+        "alias": []
     },
     {
         "id": 10,
@@ -117,7 +127,8 @@
             "Marmotte"
         ],
         "reponse": "Quenotte",
-        "anecdote": "Il est important de bien se brosser les dents de manière régulière si l'on veut éviter la prolifération de caries dans la bouche."
+        "anecdote": "Il est important de bien se brosser les dents de manière régulière si l'on veut éviter la prolifération de caries dans la bouche.",
+        "alias": []
     },
     {
         "id": 11,
@@ -129,7 +140,8 @@
             "Cuba"
         ],
         "reponse": "Cuba",
-        "anecdote": "La base de Guantanamo, très hautement sécurisée, détient des personnes et des individus qualifiés de combattants hors-la-loi."
+        "anecdote": "La base de Guantanamo, très hautement sécurisée, détient des personnes et des individus qualifiés de combattants hors-la-loi.",
+        "alias": []
     },
     {
         "id": 12,
@@ -141,7 +153,8 @@
             "Natation"
         ],
         "reponse": "Natation",
-        "anecdote": "Oussama Mellouli est le premier champion olympique tunisien du milieu de la natation professionnelle à avoir remporté ce titre."
+        "anecdote": "Oussama Mellouli est le premier champion olympique tunisien du milieu de la natation professionnelle à avoir remporté ce titre.",
+        "alias": []
     },
     {
         "id": 13,
@@ -153,7 +166,8 @@
             "Jean Gabin"
         ],
         "reponse": "Alain Delon",
-        "anecdote": "Le film « Le Guépard », mettant en scène l'acteur Alain Delon, décrit la chute de l'aristocratie italienne, dont la scène du bal donne la clé."
+        "anecdote": "Le film « Le Guépard », mettant en scène l'acteur Alain Delon, décrit la chute de l'aristocratie italienne, dont la scène du bal donne la clé.",
+        "alias": []
     },
     {
         "id": 14,
@@ -165,7 +179,8 @@
             "Saint Marc"
         ],
         "reponse": "Saint Luc",
-        "anecdote": "Sans faire partie des Douze, Saint Paul a toutefois marqué le christianisme par son interprétation de l'enseignement de Jésus."
+        "anecdote": "Sans faire partie des Douze, Saint Paul a toutefois marqué le christianisme par son interprétation de l'enseignement de Jésus.",
+        "alias": []
     },
     {
         "id": 15,
@@ -177,7 +192,8 @@
             "Duc"
         ],
         "reponse": "Vicomte",
-        "anecdote": "Vicomte est une distinction héréditaire que beaucoup revendiquent mais à laquelle ne sont attachés aucuns pouvoirs."
+        "anecdote": "Vicomte est une distinction héréditaire que beaucoup revendiquent mais à laquelle ne sont attachés aucuns pouvoirs.",
+        "alias": []
     },
     {
         "id": 16,
@@ -189,7 +205,8 @@
             "Wellington"
         ],
         "reponse": "Wellington",
-        "anecdote": "Troisième ville la plus peuplée du pays, Wellington fait partie des douze meilleures villes dans laquelle vivre."
+        "anecdote": "Troisième ville la plus peuplée du pays, Wellington fait partie des douze meilleures villes dans laquelle vivre.",
+        "alias": []
     },
     {
         "id": 17,
@@ -201,7 +218,8 @@
             "Les sorcières"
         ],
         "reponse": "Diabolique",
-        "anecdote": "Dans le film « Diabolique », la femme et la maîtresse d'un professeur s'associent pour planifier son assassinat."
+        "anecdote": "Dans le film « Diabolique », la femme et la maîtresse d'un professeur s'associent pour planifier son assassinat.",
+        "alias": []
     },
     {
         "id": 18,
@@ -213,7 +231,8 @@
             "Route du rhum"
         ],
         "reponse": "Route du café",
-        "anecdote": "La Transat Jacques Vabre ou route du café, course transatlantique en double, se déroule tous les deux ans depuis 1993."
+        "anecdote": "La Transat Jacques Vabre ou route du café, course transatlantique en double, se déroule tous les deux ans depuis 1993.",
+        "alias": []
     },
     {
         "id": 19,
@@ -225,7 +244,8 @@
             "Pie"
         ],
         "reponse": "Pingouin",
-        "anecdote": "Par abus de langage, le pingouin est souvent confondu avec le manchot, de par sa ressemblance avec le Grand Pingouin."
+        "anecdote": "Par abus de langage, le pingouin est souvent confondu avec le manchot, de par sa ressemblance avec le Grand Pingouin.",
+        "alias": []
     },
     {
         "id": 20,
@@ -237,7 +257,8 @@
             "Uranus"
         ],
         "reponse": "Jupiter",
-        "anecdote": "Jupiter est une planète géante gazeuse, la plus grosse planète du Système solaire."
+        "anecdote": "Jupiter est une planète géante gazeuse, la plus grosse planète du Système solaire.",
+        "alias": []
     },
     {
         "id": 21,
@@ -249,7 +270,8 @@
             "Insectes"
         ],
         "reponse": "Arachnides",
-        "anecdote": "Les scorpions se distinguent des araignées par un aiguillon venimeux situé au bout de leur abdomen pouvant être mortel pour l'homme."
+        "anecdote": "Les scorpions se distinguent des araignées par un aiguillon venimeux situé au bout de leur abdomen pouvant être mortel pour l'homme.",
+        "alias": []
     },
     {
         "id": 22,
@@ -261,7 +283,8 @@
             "John Payne"
         ],
         "reponse": "John Badham",
-        "anecdote": "« La fièvre du samedi soir », réalisé par John Badham, fut un des principaux vecteurs de diffusion de la musique et de la mode disco."
+        "anecdote": "« La fièvre du samedi soir », réalisé par John Badham, fut un des principaux vecteurs de diffusion de la musique et de la mode disco.",
+        "alias": []
     },
     {
         "id": 23,
@@ -273,7 +296,8 @@
             "Bastide"
         ],
         "reponse": "Bastide",
-        "anecdote": "De nos jours, les bastides les plus connues sont celles de Monflanquin, Monpazier, Grenade ou bien encore Libourne."
+        "anecdote": "De nos jours, les bastides les plus connues sont celles de Monflanquin, Monpazier, Grenade ou bien encore Libourne.",
+        "alias": []
     },
     {
         "id": 24,
@@ -285,7 +309,8 @@
             "Ramsgate"
         ],
         "reponse": "Tunbridge Wells",
-        "anecdote": "Comme la reine Victoria, de nombreuses personnes célèbres sont venues en cure à Tunbridge Wells profiter de sa source miraculeuse."
+        "anecdote": "Comme la reine Victoria, de nombreuses personnes célèbres sont venues en cure à Tunbridge Wells profiter de sa source miraculeuse.",
+        "alias": []
     },
     {
         "id": 25,
@@ -297,7 +322,8 @@
             "Piccolo"
         ],
         "reponse": "Vermouth",
-        "anecdote": "Dans une classification du plus sec au plus doux, on trouve le vermouth sec, le blanc, le rosé et le rouge."
+        "anecdote": "Dans une classification du plus sec au plus doux, on trouve le vermouth sec, le blanc, le rosé et le rouge.",
+        "alias": []
     },
     {
         "id": 26,
@@ -309,7 +335,8 @@
             "Mauriac"
         ],
         "reponse": "Mauriac",
-        "anecdote": "Dans le roman « Le sagouin », écrit en quatre parties, on peut supposer que l'action se passe vers 1920."
+        "anecdote": "Dans le roman « Le sagouin », écrit en quatre parties, on peut supposer que l'action se passe vers 1920.",
+        "alias": []
     },
     {
         "id": 27,
@@ -321,7 +348,8 @@
             "Raymond Poincaré"
         ],
         "reponse": "Félix Faure",
-        "anecdote": "Suite à ce décès inopiné, on a souvent dit de Félix Faure qu'il était un président plus célèbre par sa mort que par sa vie."
+        "anecdote": "Suite à ce décès inopiné, on a souvent dit de Félix Faure qu'il était un président plus célèbre par sa mort que par sa vie.",
+        "alias": []
     },
     {
         "id": 28,
@@ -333,7 +361,8 @@
             "Ressac"
         ],
         "reponse": "Ubac",
-        "anecdote": "Dans l'hémisphère Nord, l'ubac est généralement la face Nord d'une montagne alors que l'adret en représente la face Sud."
+        "anecdote": "Dans l'hémisphère Nord, l'ubac est généralement la face Nord d'une montagne alors que l'adret en représente la face Sud.",
+        "alias": []
     },
     {
         "id": 29,
@@ -345,7 +374,8 @@
             "Grève"
         ],
         "reponse": "Grèbe",
-        "anecdote": "La position des pattes, très courtes et très en arrière par rapport au corps, a valu au grèbe le joli nom de pieds au derrière."
+        "anecdote": "La position des pattes, très courtes et très en arrière par rapport au corps, a valu au grèbe le joli nom de pieds au derrière.",
+        "alias": []
     },
     {
         "id": 30,
@@ -357,7 +387,8 @@
             "Vilebrequin"
         ],
         "reponse": "Ciseau à bois",
-        "anecdote": "Le bédane est un outil encore parfois utilisé aujourd'hui pour réaliser des pièces en bois tournées entre pointes."
+        "anecdote": "Le bédane est un outil encore parfois utilisé aujourd'hui pour réaliser des pièces en bois tournées entre pointes.",
+        "alias": ["ciseau a bois"]
     },
     {
         "id": 31,
@@ -369,7 +400,8 @@
             "Bleue"
         ],
         "reponse": "Bordeaux",
-        "anecdote": "Toute personne sollicitant l'entrée dans un pays autre que le sien doit remplir certaines formalités et solliciter une autorisation."
+        "anecdote": "Toute personne sollicitant l'entrée dans un pays autre que le sien doit remplir certaines formalités et solliciter une autorisation.",
+        "alias": []
     },
     {
         "id": 32,
@@ -381,7 +413,8 @@
             "Un code"
         ],
         "reponse": "Un visa",
-        "anecdote": "Le visa est une condition nécessaire pour entrer et séjourner pendant une certaine durée sur certains territoires."
+        "anecdote": "Le visa est une condition nécessaire pour entrer et séjourner pendant une certaine durée sur certains territoires.",
+        "alias": ["visa"]
     },
     {
         "id": 33,
@@ -393,7 +426,8 @@
             "Suisse"
         ],
         "reponse": "Grande Bretagne",
-        "anecdote": "Le drapeau combine la croix de saint Georges du drapeau anglais et la croix de saint André du drapeau écossais."
+        "anecdote": "Le drapeau combine la croix de saint Georges du drapeau anglais et la croix de saint André du drapeau écossais.",
+        "alias": []
     },
     {
         "id": 34,
@@ -405,7 +439,8 @@
             "Du ketchup"
         ],
         "reponse": "Du ketchup",
-        "anecdote": "Le ketchup est un condiment populaire, habituellement élaboré à partir de sauce tomate, de vinaigre et de sucre."
+        "anecdote": "Le ketchup est un condiment populaire, habituellement élaboré à partir de sauce tomate, de vinaigre et de sucre.",
+        "alias": ["ketchup"]
     },
     {
         "id": 35,
@@ -417,7 +452,8 @@
             "Belgique"
         ],
         "reponse": "France",
-        "anecdote": "L'arrêté imposant les phares jaunes en France date du 3 novembre 1936 et se fonde sur l'avis de la Commission centrale."
+        "anecdote": "L'arrêté imposant les phares jaunes en France date du 3 novembre 1936 et se fonde sur l'avis de la Commission centrale.",
+        "alias": []
     },
     {
         "id": 36,
@@ -429,7 +465,8 @@
             "Bruxelles"
         ],
         "reponse": "Anvers",
-        "anecdote": "La réputation des diamantaires anversois fait de cette ville la première place mondiale de taille et de négociation du diamant."
+        "anecdote": "La réputation des diamantaires anversois fait de cette ville la première place mondiale de taille et de négociation du diamant.",
+        "alias": []
     },
     {
         "id": 37,
@@ -441,7 +478,8 @@
             "Carvi"
         ],
         "reponse": "Anis étoilé",
-        "anecdote": "Les fruits du badianier sont cueillis verts, avant d'être séchés au soleil où ils prennent une couleur marron rouge."
+        "anecdote": "Les fruits du badianier sont cueillis verts, avant d'être séchés au soleil où ils prennent une couleur marron rouge.",
+        "alias": []
     },
     {
         "id": 38,
@@ -453,7 +491,8 @@
             "12 euros"
         ],
         "reponse": "Gratuit",
-        "anecdote": "Le réseau autoroutier belge est très développé et bénéficie de la deuxième plus forte densité en Europe."
+        "anecdote": "Le réseau autoroutier belge est très développé et bénéficie de la deuxième plus forte densité en Europe.",
+        "alias": []
     },
     {
         "id": 39,
@@ -465,7 +504,8 @@
             "L'avant"
         ],
         "reponse": "La droite",
-        "anecdote": "En Irlande comme en Angleterre, on roule à gauche, ce qui oblige les piétons à d'abord regarder à droite avant de traverser."
+        "anecdote": "En Irlande comme en Angleterre, on roule à gauche, ce qui oblige les piétons à d'abord regarder à droite avant de traverser.",
+        "alias": ["droite"]
     },
     {
         "id": 40,
@@ -477,7 +517,8 @@
             "Pistolet"
         ],
         "reponse": "Croissant",
-        "anecdote": "À Paris, les premiers croissants à déguster furent vendus à la rue de Richelieu entre 1837 et 1839."
+        "anecdote": "À Paris, les premiers croissants à déguster furent vendus à la rue de Richelieu entre 1837 et 1839.",
+        "alias": []
     },
     {
         "id": 41,
@@ -489,7 +530,8 @@
             "La Chine"
         ],
         "reponse": "L'Inde",
-        "anecdote": "Étroitement associé à la fertilité, la danse du paon symbolise en Inde le réveil de la nature et l'approche de la mousson."
+        "anecdote": "Étroitement associé à la fertilité, la danse du paon symbolise en Inde le réveil de la nature et l'approche de la mousson.",
+        "alias": ["inde"]
     },
     {
         "id": 42,
@@ -501,7 +543,8 @@
             "Un pain grec"
         ],
         "reponse": "Un moine tibétain",
-        "anecdote": "Ce titre peut être utilisé de manière honorifique pour un moine, une nonne ou un pratiquant avancé du tantrisme."
+        "anecdote": "Ce titre peut être utilisé de manière honorifique pour un moine, une nonne ou un pratiquant avancé du tantrisme.",
+        "alias": ["moine tibetain", "moine tibétain"]
     },
     {
         "id": 43,
@@ -513,7 +556,8 @@
             "15"
         ],
         "reponse": "12",
-        "anecdote": "En mathématique, un trillion représente 1 milliard de milliards (109x109), soit 10 puissance 18."
+        "anecdote": "En mathématique, un trillion représente 1 milliard de milliards (109x109), soit 10 puissance 18.",
+        "alias": ["douze"]
     },
     {
         "id": 44,
@@ -525,7 +569,8 @@
             "Fièvre jaune"
         ],
         "reponse": "Fièvre jaune",
-        "anecdote": "La fièvre jaune reste toujours une cause importante de maladies hémorragiques dans plusieurs pays africains et sud-américains."
+        "anecdote": "La fièvre jaune reste toujours une cause importante de maladies hémorragiques dans plusieurs pays africains et sud-américains.",
+        "alias": []
     },
     {
         "id": 45,
@@ -537,7 +582,8 @@
             "Rotterdam"
         ],
         "reponse": "Rotterdam",
-        "anecdote": "Son activité lui a permis de s'affirmer comme le huitième port mondial en 2014, après Shanghaï et Singapour."
+        "anecdote": "Son activité lui a permis de s'affirmer comme le huitième port mondial en 2014, après Shanghaï et Singapour.",
+        "alias": []
     },
     {
         "id": 46,
@@ -549,7 +595,8 @@
             "Un préservatif"
         ],
         "reponse": "Un parapluie",
-        "anecdote": "Malgré un climat très varié de par la superficie du pays, la mousson ou la saison des pluies en Inde a lieu de juin à septembre."
+        "anecdote": "Malgré un climat très varié de par la superficie du pays, la mousson ou la saison des pluies en Inde a lieu de juin à septembre.",
+        "alias": ["parapluie"]
     },
     {
         "id": 47,
@@ -561,7 +608,8 @@
             "Costa Rica"
         ],
         "reponse": "Canada",
-        "anecdote": "Des castors sauvages ont pu être étudiés au Canada et en Europe du Nord dans des zones peu anthropisées."
+        "anecdote": "Des castors sauvages ont pu être étudiés au Canada et en Europe du Nord dans des zones peu anthropisées.",
+        "alias": []
     },
     {
         "id": 48,
@@ -573,7 +621,8 @@
             "De l'essence"
         ],
         "reponse": "Du vinaigre",
-        "anecdote": "Les méduses sont généralement des prédatrices qui paralysent leurs proies grâce à leurs cnidocytes."
+        "anecdote": "Les méduses sont généralement des prédatrices qui paralysent leurs proies grâce à leurs cnidocytes.",
+        "alias": ["vinaigre"]
     },
     {
         "id": 49,
@@ -585,7 +634,8 @@
             "Rien"
         ],
         "reponse": "Rien",
-        "anecdote": "La plate-forme de correspondance principale d'Air France est située sur l'aéroport de Paris-Charles-de-Gaulle."
+        "anecdote": "La plate-forme de correspondance principale d'Air France est située sur l'aéroport de Paris-Charles-de-Gaulle.",
+        "alias": []
     },
     {
         "id": 50,
@@ -597,7 +647,8 @@
             "Du Brésil"
         ],
         "reponse": "Du Portugal",
-        "anecdote": "Son nom signifie écu et rappelle que les premières pièces portaient la représentation de l'écu des souverains."
+        "anecdote": "Son nom signifie écu et rappelle que les premières pièces portaient la représentation de l'écu des souverains.",
+        "alias": ["portugal"]
     },
     {
         "id": 51,
@@ -609,7 +660,8 @@
             "Eskimo"
         ],
         "reponse": "Eskimo",
-        "anecdote": "Les langues eskimo contiennent les langues inuit (un continuum linguistique) et les langues yupik."
+        "anecdote": "Les langues eskimo contiennent les langues inuit (un continuum linguistique) et les langues yupik.",
+        "alias": []
     },
     {
         "id": 52,
@@ -621,7 +673,8 @@
             "Cinq"
         ],
         "reponse": "Neuf",
-        "anecdote": "Les raisons et la symbolique de ce choix ne sont pas connues précisément, et font l'objet de nombreuses théories populaires."
+        "anecdote": "Les raisons et la symbolique de ce choix ne sont pas connues précisément, et font l'objet de nombreuses théories populaires.",
+        "alias": ["9"]
     },
     {
         "id": 53,
@@ -633,7 +686,8 @@
             "Camphre"
         ],
         "reponse": "Quinine",
-        "anecdote": "Les espèces du genre Cinchona sont des arbustes, ou plus souvent des arbres, pouvant atteindre 18 mètres de hauteur."
+        "anecdote": "Les espèces du genre Cinchona sont des arbustes, ou plus souvent des arbres, pouvant atteindre 18 mètres de hauteur.",
+        "alias": []
     },
     {
         "id": 54,
@@ -645,7 +699,8 @@
             "L'humidité"
         ],
         "reponse": "La date",
-        "anecdote": "Cette ligne peut être considérée comme étant située 12 heures en avance ou 12 heures en retard par à Greenwich."
+        "anecdote": "Cette ligne peut être considérée comme étant située 12 heures en avance ou 12 heures en retard par à Greenwich.",
+        "alias": ["date"]
     },
     {
         "id": 55,
@@ -657,7 +712,8 @@
             "- 40°C"
         ],
         "reponse": "- 80°C",
-        "anecdote": "Constituant la partie nord de l'Asie, la Sibérie représente 77 % de la surface de la Russie, mais seulement 27 % de sa population."
+        "anecdote": "Constituant la partie nord de l'Asie, la Sibérie représente 77 % de la surface de la Russie, mais seulement 27 % de sa population.",
+        "alias": ["moins 80 degret", "-80 degret", "-80°C"]
     },
     {
         "id": 56,
@@ -669,7 +725,8 @@
             "Manger"
         ],
         "reponse": "Dormir",
-        "anecdote": "La forme, la composition et les tissus des oreillers varient selon les usages, les cultures, la qualité et le degré de confort de chacun."
+        "anecdote": "La forme, la composition et les tissus des oreillers varient selon les usages, les cultures, la qualité et le degré de confort de chacun.",
+        "alias": []
     },
     {
         "id": 57,
@@ -681,7 +738,8 @@
             "2h"
         ],
         "reponse": "5h",
-        "anecdote": "Un fuseau horaire est une zone de la surface terrestre qui observe une heure uniforme en tout lieu."
+        "anecdote": "Un fuseau horaire est une zone de la surface terrestre qui observe une heure uniforme en tout lieu.",
+        "alias": ["5 heure", "5 h", "cinq heure"]
     },
     {
         "id": 58,
@@ -693,7 +751,8 @@
             "Virginie"
         ],
         "reponse": "Texas",
-        "anecdote": "Les Texans sont à près de 80 % des citadins et presque la moitié d'entre eux vivent à Dallas-Fort Worth ou Houston."
+        "anecdote": "Les Texans sont à près de 80 % des citadins et presque la moitié d'entre eux vivent à Dallas-Fort Worth ou Houston.",
+        "alias": []
     },
     {
         "id": 59,
@@ -705,7 +764,8 @@
             "Une licorne"
         ],
         "reponse": "Une licorne",
-        "anecdote": "La licorne se voit dotée d'un corps équin, d'une barbiche de bouc, de sabots fendus et d'une longue corne sur le front."
+        "anecdote": "La licorne se voit dotée d'un corps équin, d'une barbiche de bouc, de sabots fendus et d'une longue corne sur le front.",
+        "alias": ["licorne"]
     },
     {
         "id": 60,
@@ -717,6 +777,7 @@
             "Les mages"
         ],
         "reponse": "Les reines",
-        "anecdote": "les pyramides des reines, au nombre de trois, font partie des pyramides subsidiaires du complexe funéraire de Khéops."
+        "anecdote": "les pyramides des reines, au nombre de trois, font partie des pyramides subsidiaires du complexe funéraire de Khéops.",
+        "alias": ["reines", "reine"]
     }
 ]

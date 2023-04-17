@@ -195,7 +195,26 @@ twitchBot.on("chat", (channel, user, message, self) => {
                             propositionsEnable	= false;
                             bddCoins[user.username] += coinsAdd;
                             saveBdd("coins", bddCoins);
-                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins`)
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`)
+                        }
+                    }
+                } else if(uneQuestion.alias.indexOf(message.toLowerCase()) != -1) {
+                    if(!propositionsEnable) {
+                        const coinsAdd = getRandomInt(50, 101);
+                        if(bddCoins[user.username] != undefined) {
+                            unEvent = false;
+                            bddCoins[user.username] += coinsAdd;
+                            saveBdd("coins", bddCoins);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`);
+                        }
+                    } else {
+                        const coinsAdd = getRandomInt(25, 51);
+                        if(bddCoins[user.username] != undefined) {
+                            unEvent = false;
+                            propositionsEnable	= false;
+                            bddCoins[user.username] += coinsAdd;
+                            saveBdd("coins", bddCoins);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`)
                         }
                     }
                 }
@@ -301,16 +320,51 @@ twitch.on("live", streamData => {
     console.log("Mersedi_ est en live.");
     stream = true;
     twitchBot.action(config.channels[0], "La collecte de point a démarer.");
-    twitch.
-    intervalMerseCoincs = setInterval(() => {
+    streamEventAndPoint();
+});
+
+
+
+twitch.on("unlive", streamData => {
+    stream = false;
+    twitchBot.action(config.channels[0], "La collecte de point c'est arreter.");
+    clearInterval(intervalMerseCoincs);
+    clearInterval(intervalEvent);
+})
+
+
+/**
+ * 
+ * @param {String} prmTag Le tag du membre auquel on souhaite recuperer l'id.
+ * @returns L'id du membre.
+ */
+module.exports.researchID = async function (prmTag) {
+    const researchUser = await client.guilds.cache.get(config.idGuild).members.cache.find(member => member.user.tag === prmTag);
+
+    return researchUser.id;
+}
+
+module.exports.forceStream = async function () {
+    twitchBot.action(config.channels[0], "La collecte de point a démarer.");
+    stream = true;
+    streamEventAndPoint();
+}
+
+async function streamEventAndPoint() {
+    intervalMerseCoincs = setInterval(async () => {
         const date = new Date();
         var jour = date.getDate();
         var mois = date.getMonth() + 1;
         var annee = date.getFullYear();
         var heure = date.getHours() + 2;
         var minute = date.getMinutes();
+        if(minute < 10)
+            minute = `0${minute}`;
+        if(mois < 10)
+            mois = `0${mois}`;
         console.log("───────────────────────────────");
         console.log(`${jour}/${mois}/${annee}  ${heure}:${minute}`);
+        console.log(config.channels[0])
         listeUser.forEach(username => {
             if (!bddCoins[username]) {
                 bddCoins[username] = 1;
@@ -323,7 +377,7 @@ twitch.on("live", streamData => {
             }
         })
         console.log("───────────────────────────────");
-    }, ms("1m"));
+    }, ms("10s"));
     
     intervalEvent = setInterval(() => {
         let event = ["drop", "question"];
@@ -353,75 +407,4 @@ twitch.on("live", streamData => {
                 break;
         }
     }, ms(`${getRandomInt(15, 31)}m`))
-});
-
-
-
-twitch.on("unlive", streamData => {
-    stream = false;
-    twitchBot.action(config.channels[0], "La collecte de point c'est arreter.");
-    clearInterval(intervalMerseCoincs);
-    clearInterval(intervalEvent);
-})
-
-
-/**
- * 
- * @param {String} prmTag Le tag du membre auquel on souhaite recuperer l'id.
- * @returns L'id du membre.
- */
-module.exports.researchID = async function (prmTag) {
-    const researchUser = await client.guilds.cache.get(config.idGuild).members.cache.find(member => member.user.tag === prmTag);
-
-    return researchUser.id;
-}
-
-module.exports.forceStream = async function () {
-    twitchBot.action(config.channels[0], "La collecte de point a démarer.");
-    stream = true;
-
-    intervalEvent = setInterval(() => {
-        let event = ["drop", "question"];
-        switch (event[Math.floor(Math.random() * event.length)]) {
-            case "drop" :
-                typeEvent = "drop";
-                motDrop = strRandom({
-                    includeUpperCase: true,
-                    includeNumbers: true,
-                    length: 10,
-                    startsWithLowerCase: true
-                })
-                twitchBot.action(config.channels[0], `Un drop vient de tomber soit le premier a taper se mot : ${motDrop}`);
-                unEvent = true;
-                break;
-            case "question" :
-                typeEvent = "question";
-                uneQuestion = bddQuestion[Math.floor(Math.random()* bddQuestion.length)];
-                twitchBot.action(config.channels[0], `${uneQuestion.question}`);
-                unEvent = true;
-                setTimeout(() => {
-                    if(unEvent) {
-                        propositionsEnable = true;
-                        twitchBot.action(config.channels[0], `Personne n'a trouver la réponse, voici un rappelle de la question : ${uneQuestion.question} et voici les propositions : 1| ${uneQuestion.propositions[0]}, 2| ${uneQuestion.propositions[1]}, 3| ${uneQuestion.propositions[2]}, 4| ${uneQuestion.propositions[3]}`)
-                    }
-                }, ms("2m"));
-                break;
-        }
-    }, ms(`${getRandomInt(15, 31)}m`))
-
-    intervalMerseCoincs = setInterval(() => {
-        console.log("───────────────────────────────\n        LANCEMENT FORCER        ")
-        listeUser.forEach(username => {
-            if (!bddCoins[username]) {
-                bddCoins[username] = 1;
-                saveBdd("coins", bddCoins);
-                console.log(`${username} à gagnez 1 coins | ${bddCoins[username]}`);
-            } else {
-                bddCoins[username]++;
-                saveBdd("coins", bddCoins);
-                console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
-            }
-        })
-        console.log("───────────────────────────────")
-    }, ms("1m"));
 }
