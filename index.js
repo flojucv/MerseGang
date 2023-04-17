@@ -377,7 +377,7 @@ async function streamEventAndPoint() {
             }
         })
         console.log("───────────────────────────────");
-    }, ms("10s"));
+    }, 60000);
     
     intervalEvent = setInterval(() => {
         let event = ["drop", "question"];
@@ -407,5 +407,5 @@ async function streamEventAndPoint() {
                 }, ms("2m"));
                 break;
         }
-    }, ms(`${getRandomInt(15, 31)}m`))
+    }, ms(`15m`))
 }
