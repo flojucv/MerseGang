@@ -52,7 +52,7 @@ Le deuxième fonctionnement est d'utiliser la commande &shop suivie d'un chiffre
 
 Si l'utilisateur ne possédent pas l'argent le bot lui indiquera, sinon le bot retirera les MerseCoins du compte de l'utilisateur et affichera un message pour avertir le streamer qu'un utilisateur a acheter un article en précisant l'article et l'utilisateur concerner.
 
-*Tout les lien dans les titres sont la partie discord des commandes, les commandes twitch se trouvent dans le dossiers [CommandesTwitch](https://github.com/flojucv/MerseGang/tree/master/CommandesTwitch) *
+*Tout les lien dans les titres sont la partie discord des commandes, les commandes twitch se trouvent dans le dossiers [CommandesTwitch](https://github.com/flojucv/MerseGang/tree/master/CommandesTwitch)*
 
 ## Système d'économie commande twitch
 
