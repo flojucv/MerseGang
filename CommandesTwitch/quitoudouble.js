@@ -1,26 +1,29 @@
 const { saveBdd } = require("../function/bdd");
-const coinsBdd = require("../bdd/coins.json");
+const { trouverCompteViaTwitch, addMerseCoins } = require("../function/merseCoinsFunction");
+const bddCompte = require("../bdd/compte.json");
 
 module.exports.run = async (client, channel, user, message, self, args) => {
     if(!args[0]) return client.action(channel, "❌| Vous n'avez pas misé !");
     if(isNaN(args[0])) return client.action(channel, "❌| Vous n'avez pas misé un nombre !");
     const mise = parseInt(args[0]);
 
-    if(coinsBdd[user.username] === undefined) return client.action(channel, "❌| Vous n'avez pas créez de compte !");
-    if(coinsBdd[user.username] < mise) return client.action(channel, "❌| Vous n'avez pas assez d'argent !");
+    const position = await trouverCompteViaTwitch(user.username);
+    if(position === -1) return client.action(channel, "❌| Vous n'avez pas créez de compte !");
+    if(bddCompte[position].MerseCoins < mise) return client.action(channel, "❌| Vous n'avez pas assez d'argent !");
     if(10 > mise) return client.action(channel, "❌| Vous ne pouvez pas misé en dessous de 10 MerseCoins !");
 
-    coinsBdd[user.username] -= mise;
+    bddCompte[position].MerseCoins -= mise;
     const choix = ["gagner", "perdue"];
     const definirChoix = choix[Math.floor(Math.random() * choix.length)];
 
     switch(definirChoix) {
         case 'gagner' :
-            coinsBdd[user.username] += (mise*2);
-            saveBdd("coins", coinsBdd);
+            
+            addMerseCoins(position, mise*2);
+            saveBdd("compte", bddCompte);
             return client.action(channel, `✅| Vous avez gagné ! Tu as gagné ${mise*2} MerseCoins`);
         case 'perdue' :
-            saveBdd("coins", coinsBdd);
+            saveBdd("compte", bddCompte);
             return client.action(channel, `❌| Vous avez perdu ! Ta mise était de ${mise} MerseCoins`);
     }
 }

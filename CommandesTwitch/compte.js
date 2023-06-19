@@ -1,10 +1,12 @@
-const bddCoins = require("../bdd/coins.json");
+const bddCompte = require("../bdd/compte.json");
+const { trouverCompteViaTwitch } = require("../function/merseCoinsFunction");
 
 module.exports.run = async(client, channel, user, message, self, args) => {
-    if(bddCoins[user['display-name'].toLowerCase()] === undefined) {
-        client.action(channel, `Vous avez 0 MerseCoins`);
+    const position = await trouverCompteViaTwitch(user.username);
+    if(position === -1) {
+        client.action(channel, `Vous n'avez pas de compte.`);
     }else {
-        client.action(channel, `Vous avez ${bddCoins[user['display-name'].toLowerCase()]} MerseCoins`);
+        client.action(channel, `Vous avez ${bddCompte[position].MerseCoins} MerseCoins`);
     }
 }
 

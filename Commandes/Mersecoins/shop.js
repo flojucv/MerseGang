@@ -1,11 +1,9 @@
 const bddShop = require("../../bdd/shop.json");
-const bddLink = require("../../bdd/link.json");
-const bddCoins = require("../../bdd/coins.json");
-const { stream } = require("../../bdd/config.json");
+const bddCompte = require("../../bdd/compte.json");
 const { EmbedBuilder } = require("discord.js");
 const { saveBdd } = require("../../function/bdd");
 const indexFile = require("../../index");
-
+const { trouverCompteViaDiscord } = require("../../function/merseCoinsFunction");
 
 module.exports.run = async (client, message, args) => {
     if (!args[0]) {
@@ -32,16 +30,17 @@ module.exports.run = async (client, message, args) => {
         if (isNaN(args[0])) return message.channel.send("❌| Vous n'avez pas mis le numéro de l'article à acheter.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
         if (args[0] < 1 || args[0] > bddShop.length) return message.channel.send(`❌| Vous devez rentrer un nombre compris entre 1 et ${bddShop.length}.`).then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
         const article = args[0] -1;
-        const pseudo = bddLink[message.author.id];
-        if (bddCoins[pseudo] === undefined)
-            return message.channel.send("❌| Vous n'avez pas de MerseCoins.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
+        const position = await trouverCompteViaDiscord(message.author.id)
+        if (position === -1)
+            return message.channel.send("❌| Vous n'avez pas de compte.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
         else {
-            if(bddCoins[pseudo] < bddShop[article].prix)
+            const compte = bddCompte[position];
+            if(compte.MerseCoins < bddShop[article].prix)
                 return message.channel.send("❌| Vous n'avez pas assez de MerseCoins.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
             else {
-                bddCoins[pseudo] -= bddShop[article].prix;
-                saveBdd("coins", bddCoins);
-                indexFile.sendMsgTwitch(`/announce L'utilisateur ${pseudo} a acheter ${bddShop[article].name} !!`);
+                compte.MerseCoins -= bddShop[article].prix;
+                saveBdd("compte", bddCompte);
+                indexFile.sendMsgTwitch(`L'utilisateur ${pseudo} a acheter ${bddShop[article].name} !!`);
             }
         }
 
@@ -52,7 +51,6 @@ module.exports.run = async (client, message, args) => {
 module.exports.runSlash = async (client, interaction) => {
     const item = interaction.options.getNumber("item");
     if (!item) {
-
         if(bddShop.length === 0) {
             return interaction.reply({content: "Le shop est vide... (Mersedi est un flemmard...)", ephemeral: true});
         }
@@ -73,17 +71,17 @@ module.exports.runSlash = async (client, interaction) => {
     } else {
         if (item < 1 || item > bddShop.length) return interaction.reply({content: `❌| Vous devez rentrer un nombre compris entre 1 et ${bddShop.length}.`, ephemeral: true});
         const article = item -1;
-        const pseudo = bddLink[interaction.user.id];
-        if (bddCoins[pseudo] === undefined)
-            return interaction.reply({content: "❌| Vous n'avez pas de MerseCoins.", ephemeral: true});
+        const position = await trouverCompteViaDiscord(interaction.user.id);
+        if (position === -1)
+            return interaction.reply({content: "❌| Vous n'avez pas de compte.", ephemeral: true});
         else {
-            if(bddCoins[pseudo] < bddShop[article].prix)
+            const compte = bddCompte[position];
+            if(compte.MerseCoins < bddShop[article].prix)
                 return interaction.reply({content: "❌| Vous n'avez pas assez de MerseCoins.", ephemeral: true});
             else {
-
-                bddCoins[pseudo] -= bddShop[article].prix;
-                saveBdd("coins", bddCoins);
-                indexFile.sendMsgTwitch(`/announce L'utilisateur ${pseudo} a acheter ${bddShop[article].name} !!`);
+                compte.MerseCoins -= bddShop[article].prix;
+                saveBdd("compte", bddCompte);
+                indexFile.sendMsgTwitch(`L'utilisateur ${pseudo} a acheter ${bddShop[article].name} !!`);
                 interaction.reply({content: "✅| Achat reussi !", ephemeral: true});
 
             }
@@ -103,7 +101,8 @@ module.exports.help = {
             name: "item",
             description: "Le numéro de ce que vous souhaitez acheter.",
             type: 10,
-            minValue: 1
+            minValue: 1,
+            maxValue: bddShop.length
         }
     ]
 }

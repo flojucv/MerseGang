@@ -50,8 +50,8 @@ module.exports.runSlash = async(client, interaction) => {
 }
 
 module.exports.help = {
-    name: "adddate",
-    aliases: ['adddate'],
+    name: "addanniversaire",
+    aliases: ['addAnniversaire', "addAnniv", "addanniv"],
     category: "membre",
     description: "Commande permettant de rentrer sa date d'anniversaire",
     usage: "<jj/mm/aaaa>",

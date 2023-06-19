@@ -7,13 +7,12 @@ const client = new Discord.Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessageReactions,
-
     ]
 });
 const fs = require('fs');
 const config = require("./bdd/config.json");
 const bddQuestion = require("./bdd/quizz.json");
-const { strRandom, getRandomInt } = require('./function/merseCoinsFunction');
+const { strRandom, getRandomInt, trouverCompteViaTwitch, addMerseCoins } = require('./function/merseCoinsFunction');
 require('dotenv').config();
 
 client.login(process.env.Token)
@@ -79,8 +78,7 @@ fs.readdir("./Events/", (error, f) => {
 const tmi = require('tmi.js');
 const { prefix } = require("./bdd/config.json");
 const ms = require('ms');
-const bddLink = require("./bdd/link.json");
-const bddCoins = require("./bdd/coins.json");
+const bddCompte = require("./bdd/compte.json");
 const { saveBdd } = require("./function/bdd.js");
 
 function msgLog(channel) {
@@ -161,73 +159,66 @@ let uneQuestion;
 let propositionsEnable = false;
 let stream = false;
 
-twitchBot.on("chat", (channel, user, message, self) => {
+twitchBot.on("chat", async (channel, user, message, self) => {
     if (self) return;
     if (user['display-name'] === "MerseGang") return;
     if (channel != "#mersedi_") return;
     if (unEvent === true) {
-        switch(typeEvent) {
-            case "drop" :
-                if (message === motDrop) {
-                    const coinsAdd = getRandomInt(50, 101);
-                    if (bddCoins[user.username] != undefined) {
+        const positionCompte = await trouverCompteViaTwitch(user.username);
+        if(positionCompte != -1) {
+            switch (typeEvent) {
+                case "drop":
+                    if (message === motDrop) {
+                        const coinsAdd = getRandomInt(50, 101);
                         unEvent = false;
-                        bddCoins[user.username] += coinsAdd;
-                        saveBdd("coins", bddCoins);
+                        addMerseCoins(positionCompte, coinsAdd);
                         twitchBot.action(channel, `${user.username} a récuperer le drop ! il/elle gagne ${coinsAdd} MerseCoins`);
+
                     }
-                }
-                break;
-            case "question":
-                if(message.toLowerCase() === uneQuestion.reponse.toLowerCase()) {
-                    if(!propositionsEnable) {
-                        const coinsAdd = getRandomInt(50, 101);
-                        if(bddCoins[user.username] != undefined) {
+                    break;
+                case "question":
+                    if (message.toLowerCase() === uneQuestion.reponse.toLowerCase()) {
+                        if (!propositionsEnable) {
+                            const coinsAdd = getRandomInt(50, 101);
                             unEvent = false;
-                            bddCoins[user.username] += coinsAdd;
-                            saveBdd("coins", bddCoins);
+                            addMerseCoins(positionCompte, coinsAdd);
                             twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`);
-                        }
-                    } else {
-                        const coinsAdd = getRandomInt(25, 51);
-                        if(bddCoins[user.username] != undefined) {
+
+                        } else {
+                            const coinsAdd = getRandomInt(25, 51);
                             unEvent = false;
-                            propositionsEnable	= false;
-                            bddCoins[user.username] += coinsAdd;
-                            saveBdd("coins", bddCoins);
+                            propositionsEnable = false;
+                            addMerseCoins(positionCompte, coinsAdd);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote} (${uneQuestion.id})`)
+
+                        }
+                    } else if (uneQuestion.alias.indexOf(message.toLowerCase()) != -1) {
+                        if (!propositionsEnable) {
+                            const coinsAdd = getRandomInt(50, 101);
+                            unEvent = false;
+                            addMerseCoins(positionCompte, coinsAdd);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote} (${uneQuestion.id})`);
+
+                        } else {
+                            const coinsAdd = getRandomInt(25, 51);
+                            unEvent = false;
+                            propositionsEnable = false;
+                            addMerseCoins(positionCompte, coinsAdd);
                             twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`)
+
                         }
                     }
-                } else if(uneQuestion.alias.indexOf(message.toLowerCase()) != -1) {
-                    if(!propositionsEnable) {
-                        const coinsAdd = getRandomInt(50, 101);
-                        if(bddCoins[user.username] != undefined) {
-                            unEvent = false;
-                            bddCoins[user.username] += coinsAdd;
-                            saveBdd("coins", bddCoins);
-                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`);
-                        }
-                    } else {
-                        const coinsAdd = getRandomInt(25, 51);
-                        if(bddCoins[user.username] != undefined) {
-                            unEvent = false;
-                            propositionsEnable	= false;
-                            bddCoins[user.username] += coinsAdd;
-                            saveBdd("coins", bddCoins);
-                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`)
-                        }
-                    }
-                }
-                break;
+                    break;
+            }
         }
     }
 
     if (!message.startsWith(prefix)) return;
-    
+
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
     const cmd = twitchBot.commands.get(commande);
-    if(stream === false && commande != "forcestream") return;
+    if (stream === false && commande != "forcestream") return;
     if (!cmd) return;
 
 
@@ -279,14 +270,12 @@ twitchBot.on("chat", (channel, user, message, self) => {
 
 let listeUser = []
 
-twitchBot.on("join", (channel, username, self) => {
+twitchBot.on("join", async (channel, username, self) => {
     console.log(`${msgLog(channel)} ${username} a rejoins le channel`);
 
-    for (const key in bddLink) {
-        if (bddLink[key] === username) {
-            listeUser.push(username);
-            console.log(`${username} à rejoins la collecte de point.`);
-        }
+    if(await trouverCompteViaTwitch(username) != -1) {
+        listeUser.push(username);
+        console.log(`${msgLog(channel)} ${username} à rejoins la collecte de point.`);
     }
 })
 
@@ -344,6 +333,34 @@ module.exports.researchID = async function (prmTag) {
     return researchUser.id;
 }
 
+module.exports.sendConfirmationLink = async function(tagDiscord, twitchPseudo) {
+    if(tagDiscord.split("#").length === 1) {
+        tagDiscord = `${tagDiscord}#0`;
+    }
+    const researchUser = await client.guilds.cache.get(config.idGuild).members.cache.find(member => member.user.tag == tagDiscord);
+
+    if(!researchUser) {
+        twitchBot.action(config.channels[0], `❌| ${twitchPseudo}, Le compte discord n'existe pas.`);
+    } else {
+        const embedConfirm = new Discord.EmbedBuilder()
+        .setTitle("Confirmation lien twitch ↔ discord")
+        .setTimestamp()
+        .setDescription("Attention se message se supprimera au bout d'une minute\nPour accepter la liaison cliquez sur le bouton confirmer")
+        .setColor("#5B3EBA")
+
+        const row = new Discord.ActionRowBuilder()
+        .addComponents(
+            new Discord.ButtonBuilder()
+            .setLabel("Confirmer")
+            .setCustomId(`confirmLink;${twitchPseudo}`)
+            .setStyle(Discord.ButtonStyle.Success)
+        )
+        researchUser.send({embeds: [embedConfirm], components: [row]}).then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 60000); }).then(message => {
+            twitchBot.action(config.channels[0], `✅| ${twitchPseudo}, Retourne voir sur discord, tu as reçu un message !`);
+        });
+    }
+}
+
 module.exports.forceStream = async function () {
     twitchBot.action(config.channels[0], "La collecte de point a démarer.");
     stream = true;
@@ -358,31 +375,34 @@ async function streamEventAndPoint() {
         var annee = date.getFullYear();
         var heure = date.getHours() + 2;
         var minute = date.getMinutes();
-        if(minute < 10)
+        if (minute < 10)
             minute = `0${minute}`;
-        if(mois < 10)
+        if (mois < 10)
             mois = `0${mois}`;
         console.log("───────────────────────────────");
         console.log(`${jour}/${mois}/${annee}  ${heure}:${minute}`);
         console.log(config.channels[0])
-        listeUser.forEach(username => {
-            if (!bddCoins[username]) {
-                bddCoins[username] = 1;
-                saveBdd("coins", bddCoins);
-                console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
-            } else {
-                bddCoins[username]++;
-                saveBdd("coins", bddCoins);
-                console.log(`${username} à gagnez 1 coins | il a ${bddCoins[username]}`);
+        await listeUser.forEach(async username => {
+            const positionCompte = await trouverCompteViaTwitch(username);
+            if(positionCompte != -1) {
+                const compte = bddCompte[positionCompte];
+                const bddGrade = require("./bdd/grade.json");
+                bddGrade.forEach((options) => {
+                    if(options.nomGrade === compte.grade) {
+                      compte.MerseCoins += options.pointdechaine;
+                      saveBdd("compte", bddCompte);
+                      console.log(`${compte.pseudoTwitch} a obtenue ${options.pointdechaine} MerseCoins. il/elle a ${compte.MerseCoins} Mersecoins`)
+                    }
+                })
             }
         })
         console.log("───────────────────────────────");
     }, 60000);
-    
+
     intervalEvent = setInterval(() => {
         let event = ["drop", "question"];
         switch (event[Math.floor(Math.random() * event.length)]) {
-            case "drop" :
+            case "drop":
                 typeEvent = "drop";
                 motDrop = strRandom({
                     includeUpperCase: true,
@@ -393,14 +413,14 @@ async function streamEventAndPoint() {
                 twitchBot.action(config.channels[0], `Un drop vient de tomber soit le premier a taper se mot : ${motDrop}`);
                 unEvent = true;
                 break;
-            case "question" :
+            case "question":
                 typeEvent = "question";
-                uneQuestion = bddQuestion[Math.floor(Math.random()* bddQuestion.length)];
+                uneQuestion = bddQuestion[Math.floor(Math.random() * bddQuestion.length)];
                 twitchBot.action(config.channels[0], `${uneQuestion.question}`);
                 unEvent = true;
                 console.log(`Question : ${uneQuestion.question}\nRéponse : ${uneQuestion.reponse}\nAlias : ${uneQuestion.alias}`);
                 setTimeout(() => {
-                    if(unEvent) {
+                    if (unEvent) {
                         propositionsEnable = true;
                         twitchBot.action(config.channels[0], `Personne n'a trouver la réponse, voici un rappelle de la question : ${uneQuestion.question} et voici les propositions : 1| ${uneQuestion.propositions[0]}, 2| ${uneQuestion.propositions[1]}, 3| ${uneQuestion.propositions[2]}, 4| ${uneQuestion.propositions[3]}`)
                     }

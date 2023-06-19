@@ -1,0 +1,17 @@
+[
+    {
+        "nomGrade": "viewer",
+        "multiplicateur": 1,
+        "pointdechaine": 1
+    },
+    {
+        "nomGrade": "vip",
+        "multiplicateur": 1.1,
+        "pointdechaine": 2
+    },
+    {
+        "nomGrade": "famous",
+        "multiplicateur": 1.15,
+        "pointdechaine": 3
+    }
+]

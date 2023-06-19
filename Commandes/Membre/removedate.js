@@ -43,8 +43,8 @@ module.exports.runSlash = async(client, interaction) => {
 }
 
 module.exports.help = {
-    name: "removedate",
-    aliases: ['rd'],
+    name: "removeanniversaire",
+    aliases: ['removeAnniversaire', 'supprimerAnniversaire', 'supprimeranniversaire', 'removedate'],
     category: "membre",
     description: "Commande permettant de retirer sa date d'anniversaire",
     usage: "<jj/mm/aaaa>",

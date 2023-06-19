@@ -1,6 +1,7 @@
 const bddPrediction = require("../bdd/prediction.json");
-const bddCoins = require("../bdd/coins.json");
+const bddCompte = require("../bdd/compte.json");
 const { saveBdd } = require("../function/bdd.js");
+const { trouverCompteViaTwitch } = require("../function/merseCoinsFunction");
 
 module.exports.run = async(client, channel, user, message, self, args) => {
     if(bddPrediction.termine) return client.action(channel, "❌| Il n'y a pas de prédiction en cours.");
@@ -12,36 +13,38 @@ module.exports.run = async(client, channel, user, message, self, args) => {
     if(isNaN(args[1])) return client.action(channel, "❌| Vous devez mettre un chiffre");
     if(args[1] <= 9) return client.action(channel, "❌| Vous ne pouvez pas mise en dessous de 10 MerseCoins");
 
-    if(bddCoins[user.username] === undefined) return client.action(channel, "❌| Vous n'avez pas de compte, vous ne pouvez pas participez au prediction");
-    if(bddCoins[user.username] < args[1]) return client.action(channel, "❌| Vous n'avez pas assez de MerseCoins pour parier cette somme.");
+    const position = await trouverCompteViaTwitch(user.username);
+    if(position === -1) return client.action(channel, "❌| Vous n'avez pas de compte, vous ne pouvez pas participez au prediction");
+    const compte = bddCompte[position];
+    if(compte.MerseCoins < args[1]) return client.action(channel, "❌| Vous n'avez pas assez de MerseCoins pour parier cette somme.");
     const resultReseach = research(user.username);
     if(args[0] ===  "choix1") {
         if(resultReseach === null) {
             bddPrediction.ParticipantChoix1.push({username: user.username, mise: parseInt(args[1])});
-            bddCoins[user.username] -= parseInt(args[1]);
+            compte.MerseCoins -= parseInt(args[1]);
             saveBdd("prediction", bddPrediction);
-            saveBdd("coins", bddCoins);
+            saveBdd("compte", bddCompte);
         }else if(resultReseach.choix === 1) {
             bddPrediction.ParticipantChoix1[resultReseach.index].mise += parseInt(args[1]);
-            bddCoins[user.username] -= parseInt(args[1]);
+            compte.MerseCoins -= parseInt(args[1]);
             saveBdd("prediction", bddPrediction);
-            saveBdd("coins", bddCoins);
+            saveBdd("compte", bddCompte);
         } else if(resultReseach.choix === 2) {
             return client.action(channel, "❌| Vous ne pouvez pas changer de choix.");
         }
     } else {
         if(resultReseach === null) {
             bddPrediction.ParticipantChoix2.push({username: user.username, mise: parseInt(args[1])});
-            bddCoins[user.username] -= args[1];
+            compte.MerseCoins -= args[1];
             saveBdd("prediction", bddPrediction);
-            saveBdd("coins", bddCoins);
+            saveBdd("compte", bddCompte);
         }else if(resultReseach.choix === 1) {
             return client.action(channel, "❌| Vous ne pouvez pas changer de choix.");
         } else if(resultReseach.choix === 2){
             bddPrediction.ParticipantChoix2[resultReseach.index].mise += parseInt(args[1]);
-            bddCoins[user.username] -= parseInt(args[1]);
+            compte.MerseCoins -= parseInt(args[1]);
             saveBdd("prediction", bddPrediction);
-            saveBdd("coins", bddCoins);
+            saveBdd("compte", bddCompte);
         }
     }
 

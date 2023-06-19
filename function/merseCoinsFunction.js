@@ -1,3 +1,5 @@
+const { saveBdd } = require("./bdd");
+
 /**
  * 
  * @param {Object} o Un objet json contenant au maximum les paramètres suivant : {
@@ -45,4 +47,50 @@ module.exports.getRandomInt = function(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+/**
+ * 
+ * @param {int} position La position du compte dans le tableau des comptes.
+ * @param {*} addMerseCoins Le nombre de merseCoins que l'on souhaite ajouter.
+ */
+module.exports.addMerseCoins = function(position, addMerseCoins) {
+  const bddCompte = require("../bdd/compte.json");
+  const bddGrade = require("../bdd/grade.json");
+  const compte = bddCompte[position];
+  bddGrade.forEach((options) => {
+    if(options.nomGrade === compte.grade) {
+      const calcul = addMerseCoins*options.multiplicateur;
+      compte.MerseCoins += parseInt(Math.round(calcul));
+      saveBdd("compte", bddCompte);
+    }
+  })
+}
+
+module.exports.trouverCompteViaTwitch = async function(pseudoTwitch) {
+  const bddCompte = require("../bdd/compte.json");
+  let positionFinal = -1;
+
+
+  await bddCompte.forEach((compte, position) => {
+    if(compte.pseudoTwitch === pseudoTwitch) {
+      positionFinal = position;
+    }
+  })
+
+  return positionFinal;
+
+}
+
+module.exports.trouverCompteViaDiscord = async function(idDiscord) {
+  const bddCompte = require("../bdd/compte.json");
+  let positionFinal = -1;
+
+  await bddCompte.forEach((compte, position) => {
+    if(compte.idDiscord === idDiscord) {
+      positionFinal = position;
+    }
+  })
+
+  return positionFinal;
 }

@@ -1,38 +1,38 @@
 const { PermissionsBitField } = require('discord.js');
-const bddCoins = require("../../bdd/coins.json");
-const bddLink = require("../../bdd/link.json");
+const bddCompte = require("../../bdd/compte.json");
 const { saveBdd } = require("../../function/bdd");
+const { trouverCompteViaDiscord } = require('../../function/merseCoinsFunction');
 
-module.exports.run = async(client, message, args) => {
-    message.delete()
-    if(!message.guild.members.cache.get(message.author.id).permissions.has(PermissionsBitField.Flags.BanMembers)) return message.channel.send("❌| Vous n'avez pas la permissions d'utilisez cette commande.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
+module.exports.run = async (client, message, args) => {
+    message.delete();
+    if (!message.guild.members.cache.get(message.author.id).permissions.has(PermissionsBitField.Flags.BanMembers)) return message.channel.send("❌| Vous n'avez pas la permissions d'utilisez cette commande.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
 
     const target = message.mentions.members.first();
-    if(!target) return message.channel.send("❌| Vous n'avez pas mentionner d'utilisateur.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
+    if (!target) return message.channel.send("❌| Vous n'avez pas mentionner d'utilisateur.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
 
-    if(!args[1] || isNaN(args[1])) return message.channel.send("❌| Vous n'avez pas renseignez de nombre.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
+    if (!args[1] || isNaN(args[1])) return message.channel.send("❌| Vous n'avez pas renseignez de nombre.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
 
-    const pseudo = bddLink[target.user.tag];
-    if (bddCoins[pseudo] === undefined)
+    const position = await trouverCompteViaDiscord(target.user.id);
+    if (position === -1)
         return message.channel.send("❌| L'utilisateur n'a pas de compte.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
-    bddCoins[pseudo] += parseInt(args[1]);
-    saveBdd("coins", bddCoins);
+    bddCompte[position].MerseCoins += parseInt(args[1]);
+    saveBdd("compte", bddCompte);
     message.channel.send(`✅| ${args[1]} MerseCoins ont été donné a ${target.user.tag}.`).then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
 }
 
-module.exports.runSlash = async(client, interaction) => {
-    if(!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) return interaction.reply({ content: "❌| Vous n'avez pas la permissions d'utilisez cette commande.", ephemeral: true });
+module.exports.runSlash = async (client, interaction) => {
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) return interaction.reply({ content: "❌| Vous n'avez pas la permissions d'utilisez cette commande.", ephemeral: true });
 
     const target = interaction.options.getUser("user");
     const nombre = interaction.options.getNumber("nombre");
 
-    const pseudo = bddLink[target.tag];
-    
-    if (bddCoins[pseudo] === undefined)
-        return interaction.reply({content: "❌| L'utilisateur n'a pas de compte.", ephemeral: true});
-    bddCoins[pseudo] += parseInt(nombre);
-    saveBdd("coins", bddCoins);
-    interaction.reply({content: `✅| ${nombre} MerseCoins ont été donné a ${target.tag}.`, ephemeral: true});
+    const position = await trouverCompteViaDiscord(target.id);
+
+    if (position === -1)
+        return interaction.reply({ content: "❌| L'utilisateur n'a pas de compte.", ephemeral: true });
+    bddCompte[position].MerseCoins += parseInt(nombre);
+    saveBdd("compte", bddCompte);
+    interaction.reply({ content: `✅| ${nombre} MerseCoins ont été donné a ${target.tag}.`, ephemeral: true });
 }
 
 module.exports.help = {
@@ -54,6 +54,6 @@ module.exports.help = {
             type: 10,
             required: true,
         }
-        
+
     ]
 }
