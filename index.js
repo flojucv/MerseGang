@@ -165,7 +165,7 @@ twitchBot.on("chat", async (channel, user, message, self) => {
     if (channel != "#mersedi_") return;
     if (unEvent === true) {
         const positionCompte = await trouverCompteViaTwitch(user.username);
-        if(positionCompte != -1) {
+        if (positionCompte != -1) {
             switch (typeEvent) {
                 case "drop":
                     if (message === motDrop) {
@@ -273,7 +273,7 @@ let listeUser = []
 twitchBot.on("join", async (channel, username, self) => {
     console.log(`${msgLog(channel)} ${username} a rejoins le channel`);
 
-    if(await trouverCompteViaTwitch(username) != -1) {
+    if (await trouverCompteViaTwitch(username) != -1) {
         listeUser.push(username);
         console.log(`${msgLog(channel)} ${username} à rejoins la collecte de point.`);
     }
@@ -307,6 +307,18 @@ let intervalEvent;
 twitch.on("live", streamData => {
 
     console.log("Mersedi_ est en live.");
+    const embedStream = new Discord.EmbedBuilder()
+        .setColor('#9700C6')
+        .setTitle(streamData.title)
+        .setURL(`https://www.twitch.tv/${streamData.name}`)
+        .setAuthor({ name: streamData.name, iconURL: streamData.profile, url: `https://www.twitch.tv/${streamData.name}` })
+        .addFields(
+            { name: 'Game', value: streamData.game, inline: true },
+            { name: 'Viewers', value: streamData.viewers, inline: true },
+        )
+        .setImage(streamData.profile)
+        .setFooter('Bot by flojucv');
+    client.guilds.cache.get(config.idGuild).channels.cache.find(channel => channel.id === "985048670028312606").send({embeds: [embedStream]});
     stream = true;
     twitchBot.action(config.channels[0], "La collecte de point a démarer.");
     streamEventAndPoint();
@@ -333,29 +345,29 @@ module.exports.researchID = async function (prmTag) {
     return researchUser.id;
 }
 
-module.exports.sendConfirmationLink = async function(tagDiscord, twitchPseudo) {
-    if(tagDiscord.split("#").length === 1) {
+module.exports.sendConfirmationLink = async function (tagDiscord, twitchPseudo) {
+    if (tagDiscord.split("#").length === 1) {
         tagDiscord = `${tagDiscord}#0`;
     }
     const researchUser = await client.guilds.cache.get(config.idGuild).members.cache.find(member => member.user.tag == tagDiscord);
 
-    if(!researchUser) {
+    if (!researchUser) {
         twitchBot.action(config.channels[0], `❌| ${twitchPseudo}, Le compte discord n'existe pas.`);
     } else {
         const embedConfirm = new Discord.EmbedBuilder()
-        .setTitle("Confirmation lien twitch ↔ discord")
-        .setTimestamp()
-        .setDescription("Attention se message se supprimera au bout d'une minute\nPour accepter la liaison cliquez sur le bouton confirmer")
-        .setColor("#5B3EBA")
+            .setTitle("Confirmation lien twitch ↔ discord")
+            .setTimestamp()
+            .setDescription("Attention se message se supprimera au bout d'une minute\nPour accepter la liaison cliquez sur le bouton confirmer")
+            .setColor("#5B3EBA")
 
         const row = new Discord.ActionRowBuilder()
-        .addComponents(
-            new Discord.ButtonBuilder()
-            .setLabel("Confirmer")
-            .setCustomId(`confirmLink;${twitchPseudo}`)
-            .setStyle(Discord.ButtonStyle.Success)
-        )
-        researchUser.send({embeds: [embedConfirm], components: [row]}).then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 60000); }).then(message => {
+            .addComponents(
+                new Discord.ButtonBuilder()
+                    .setLabel("Confirmer")
+                    .setCustomId(`confirmLink;${twitchPseudo}`)
+                    .setStyle(Discord.ButtonStyle.Success)
+            )
+        researchUser.send({ embeds: [embedConfirm], components: [row] }).then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 60000); }).then(message => {
             twitchBot.action(config.channels[0], `✅| ${twitchPseudo}, Retourne voir sur discord, tu as reçu un message !`);
         });
     }
@@ -384,14 +396,14 @@ async function streamEventAndPoint() {
         console.log(config.channels[0])
         await listeUser.forEach(async username => {
             const positionCompte = await trouverCompteViaTwitch(username);
-            if(positionCompte != -1) {
+            if (positionCompte != -1) {
                 const compte = bddCompte[positionCompte];
                 const bddGrade = require("./bdd/grade.json");
                 bddGrade.forEach((options) => {
-                    if(options.nomGrade === compte.grade) {
-                      compte.MerseCoins += options.pointdechaine;
-                      saveBdd("compte", bddCompte);
-                      console.log(`${compte.pseudoTwitch} a obtenue ${options.pointdechaine} MerseCoins. il/elle a ${compte.MerseCoins} Mersecoins`)
+                    if (options.nomGrade === compte.grade) {
+                        compte.MerseCoins += options.pointdechaine;
+                        saveBdd("compte", bddCompte);
+                        console.log(`${compte.pseudoTwitch} a obtenue ${options.pointdechaine} MerseCoins. il/elle a ${compte.MerseCoins} Mersecoins`)
                     }
                 })
             }
