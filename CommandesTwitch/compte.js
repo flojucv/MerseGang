@@ -12,6 +12,7 @@ module.exports.run = async(client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "compte",
+    aliases: ['compte'],
     cooldown : "1m",
     description: "Combien de MerseCoins a tu ?",
     permissions: false

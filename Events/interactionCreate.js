@@ -1,16 +1,18 @@
 const voteCandidat = require("../bdd/candidat.json");
 const vote = require("../bdd/vote.json");
-const fs = require('fs');
 const { EmbedBuilder } = require("discord.js");
 const { trouverCompteViaTwitch } = require("../function/merseCoinsFunction");
 const bddCompte = require("../bdd/compte.json");
 const { saveBdd } = require("../function/bdd");
+const index = require("../index");
+const logger = require("../function/logger");
 
 module.exports = async(client, interaction) => {
 
     if(interaction.isCommand()) {
         const cmd = client.commands.get(interaction.commandName);
         if(!cmd) return interaction.reply("Erreur, cette commande n'existe pas");
+        logger.info(`Commande ${cmd.help.name} executez par ${interaction.user.tag}`);
         cmd.runSlash(client, interaction);
     }else if(interaction.isButton()) {
         /*if(interaction.channel.id === "989083104054505562") {
@@ -58,10 +60,11 @@ module.exports = async(client, interaction) => {
                 interaction.reply("❌| Vous avez déjà lié votre compte.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
                 interaction.message.delete();
             } else {
-                bddCompte.push({pseudoTwitch: pseudoTwitch, idDiscord: interaction.user.id, grade: "Viewer", MerseCoins: 0 });
+                bddCompte.push({pseudoTwitch: pseudoTwitch, idDiscord: interaction.user.id, grade: "viewer", MerseCoins: 0 });
                 saveBdd("compte", bddCompte);
                 interaction.message.delete();
                 interaction.reply("✅| Votre compte a bien été lier.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
+                index.addToList(pseudoTwitch);
             }
         }
     }

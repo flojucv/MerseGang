@@ -12,6 +12,7 @@ module.exports.run = async(client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "link",
+    aliases: ['link'],
     cooldown : "1s",
     description: "Permet de lier son compte twitch et discord pour les points de chaine",
     permissions: false

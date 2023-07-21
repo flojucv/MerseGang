@@ -37,6 +37,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "shop",
+    aliases: ['shop'],
     cooldown : "1m",
     description: "Que vas-tu acheter avec tes MerseCoins ?",
     permissions: false

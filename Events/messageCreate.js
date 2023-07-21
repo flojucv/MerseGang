@@ -4,6 +4,7 @@ const prefix = config.prefix;
 const candidat = require("../bdd/candidat.json")
 const { ActionRowBuilder, EmbedBuilder, ButtonBuilder } = require('discord.js');
 const fs = require('fs');
+const logger = require("../function/logger");
 
 module.exports = async(client, message) => {
 
@@ -67,5 +68,6 @@ module.exports = async(client, message) => {
     const cmd = client.commands.get(commande) || client.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commande));
 
     if(!cmd) return;
-   cmd.run(client, message, args);
+    logger.info(`Commande ${cmd.help.name} executez par ${message.author.tag} | ${message.content}`);
+    cmd.run(client, message, args);
 };

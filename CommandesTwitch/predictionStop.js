@@ -68,6 +68,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "predictionstop",
+    aliases: ['pstop'],
     cooldown: "1m",
     description: "Permets de stoper une prédiction, et de donner les points au gagnant. Syntaxe: &predictionstop <choix1/choix2>",
     permissions: "moderator",

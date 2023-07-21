@@ -12,6 +12,7 @@ const client = new Discord.Client({
 const fs = require('fs');
 const config = require("./bdd/config.json");
 const bddQuestion = require("./bdd/quizz.json");
+const logger = require("./function/logger");
 const { strRandom, getRandomInt, trouverCompteViaTwitch, addMerseCoins } = require('./function/merseCoinsFunction');
 require('dotenv').config();
 
@@ -158,6 +159,7 @@ let typeEvent = "";
 let uneQuestion;
 let propositionsEnable = false;
 let stream = false;
+let doubleMersecoin = false;
 
 twitchBot.on("chat", async (channel, user, message, self) => {
     if (self) return;
@@ -217,7 +219,7 @@ twitchBot.on("chat", async (channel, user, message, self) => {
 
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
-    const cmd = twitchBot.commands.get(commande);
+    const cmd = twitchBot.commands.get(commande) || twitchBot.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commande));
     if (stream === false && commande != "forcestream") return;
     if (!cmd) return;
 
@@ -247,17 +249,21 @@ twitchBot.on("chat", async (channel, user, message, self) => {
         case "users":
             if (cmd.help.users === undefined || cmd.help.users.length === 0) return console.log("[ERROR TWITCH] NO USER ENTER");
             if (cmd.help.users.indexOf(user["username"]) === -1) return twitchBot.action(channel, `❌| ${user["username"]}, Vous n'avez pas la permissions d'utilisez cette commande.`);
+            logger.info(`Commande ${cmd.help.name} executez par ${user.username} | ${message}`);
             cmd.run(twitchBot, channel, user, message, self, args);
             break;
         case "vip":
             if (user["vip"] != true) return twitchBot.action(channel, `❌| ${user["username"]}, Vous n'avez pas la permissions d'utilisez cette commande.`);
+            logger.info(`Commande ${cmd.help.name} executez par ${user.username} | ${message}`);
             cmd.run(twitchBot, channel, user, message, self, args);
             break;
         case "moderator":
             if (user["mod"] === false && user["username"] != "mersedi_") return twitchBot.action(channel, `❌| ${user["username"]}, Vous n'avez pas la permissions d'utilisez cette commande.`);
+            logger.info(`Commande ${cmd.help.name} executez par ${user.username} | ${message}`);
             cmd.run(twitchBot, channel, user, message, self, args);
             break;
         case false:
+            logger.info(`Commande ${cmd.help.name} executez par ${user.username} | ${message}`);
             cmd.run(twitchBot, channel, user, message, self, args);
             break;
         default:
@@ -307,7 +313,7 @@ let intervalEvent;
 twitch.on("live", streamData => {
 
     console.log("Mersedi_ est en live.");
-    const embedStream = new Discord.EmbedBuilder()
+    /*const embedStream = new Discord.EmbedBuilder()
         .setColor('#9700C6')
         .setTitle(streamData.title)
         .setURL(`https://www.twitch.tv/${streamData.name}`)
@@ -318,9 +324,9 @@ twitch.on("live", streamData => {
         )
         .setImage(streamData.profile)
         .setFooter('Bot by flojucv');
-    client.guilds.cache.get(config.idGuild).channels.cache.find(channel => channel.id === "985048670028312606").send({embeds: [embedStream]});
+    client.guilds.cache.get(config.idGuild).channels.cache.find(channel => channel.id === "985048670028312606").send({embeds: [embedStream]});*/
     stream = true;
-    twitchBot.action(config.channels[0], "La collecte de point a démarer.");
+    twitchBot.action(config.channels[0], "[TEST] La collecte de point a démarer.");
     streamEventAndPoint();
 });
 
@@ -328,6 +334,7 @@ twitch.on("live", streamData => {
 
 twitch.on("unlive", streamData => {
     stream = false;
+    doubleMersecoin = false;
     twitchBot.action(config.channels[0], "La collecte de point c'est arreter.");
     clearInterval(intervalMerseCoincs);
     clearInterval(intervalEvent);
@@ -379,6 +386,18 @@ module.exports.forceStream = async function () {
     streamEventAndPoint();
 }
 
+module.exports.setDoubleMersecoins = async function() {
+    doubleMersecoin = true;
+    twitchBot.action(config.channels[0], "Les MerseCoins reçus tout les minutes sont doublés !!");
+}
+
+module.exports.addToList = async function(username) {
+    if (await trouverCompteViaTwitch(username) != -1) {
+        listeUser.push(username);
+        console.log(`${msgLog(channel)} ${username} à rejoins la collecte de point.`);
+    }
+}
+
 async function streamEventAndPoint() {
     intervalMerseCoincs = setInterval(async () => {
         const date = new Date();
@@ -399,11 +418,17 @@ async function streamEventAndPoint() {
             if (positionCompte != -1) {
                 const compte = bddCompte[positionCompte];
                 const bddGrade = require("./bdd/grade.json");
-                bddGrade.forEach((options) => {
+                await bddGrade.forEach((options) => {
                     if (options.nomGrade === compte.grade) {
-                        compte.MerseCoins += options.pointdechaine;
-                        saveBdd("compte", bddCompte);
-                        console.log(`${compte.pseudoTwitch} a obtenue ${options.pointdechaine} MerseCoins. il/elle a ${compte.MerseCoins} Mersecoins`)
+                        if (doubleMersecoin === true) {
+                            compte.MerseCoins += (options.pointdechaine * 2);
+                            saveBdd("compte", bddCompte);
+                            console.log(`${compte.pseudoTwitch} a obtenue ${(options.pointdechaine * 2)} MerseCoins. il/elle a ${compte.MerseCoins} Mersecoins`);
+                        } else {
+                            compte.MerseCoins += options.pointdechaine;
+                            saveBdd("compte", bddCompte);
+                            console.log(`${compte.pseudoTwitch} a obtenue ${options.pointdechaine} MerseCoins. il/elle a ${compte.MerseCoins} Mersecoins`);
+                        }
                     }
                 })
             }

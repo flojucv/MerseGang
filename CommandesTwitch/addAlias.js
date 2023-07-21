@@ -18,6 +18,7 @@ module.exports.run = async(client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "addAlias",
+    aliases: ['addAlias'],
     cooldown : "1m",
     description: "Permet d'ajouter des alias a une question.",
     permissions: "users",

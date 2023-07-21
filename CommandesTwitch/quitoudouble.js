@@ -30,6 +30,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "quitoudouble",
+    aliases: ['qod'],
     cooldown: "10m",
     description: "Double ta mise ou perd tout ! (mise minimale : 10 MerseCoins)",
     permissions: false,

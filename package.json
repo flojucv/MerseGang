@@ -1,7 +1,7 @@
 {
   "name": "mersegang",
-  "version": "1.0.10",
-  "description": "Bot du grand mersedi",
+  "version": "2.0.0",
+  "description": "Bot discord ayant une partie twitch et discord, le bot posséde un système économique, des commandes de modération, et d'autre commande prédéfinis",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,6 +15,7 @@
     "moment": "^2.29.4",
     "ms": "^2.1.3",
     "tmi.js": "^1.8.5",
-    "twitchrequest": "^1.4.9"
+    "twitchrequest": "^1.4.9",
+    "winston": "^3.10.0"
   }
 }

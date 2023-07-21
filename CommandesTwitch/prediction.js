@@ -76,6 +76,7 @@ module.exports.run = async(client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "prediction",
+    aliases: ['p'],
     cooldown : "1m",
     description: "Permet de choisir lors de votre prédiction, Syntaxe : &prediction <choix1/choix2> <mise>",
     permissions: false,

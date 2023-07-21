@@ -28,6 +28,7 @@ module.exports.run = async(client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "predictionstart",
+    aliases: ['pstart'],
     cooldown : "1m",
     description: "Permets de lancer une prédiction, Syntaxe : &predictionstart question:votre question choix1:votre premier choix 2:votre deuxième choix",
     permissions: "moderator"
