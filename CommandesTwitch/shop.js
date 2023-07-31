@@ -19,8 +19,10 @@ module.exports.run = async (client, channel, user, message, self, args) => {
         const article = args[0] -1;
         const pseudo = user['display-name'];
         const position = await trouverCompteViaTwitch(pseudo);
-        if ( position === -1)
+        if ( position === -1) {
+            console.log(position);
             return client.action(channel, "❌| Vous n'avez pas de compte.");
+        }
         else {
             if(bddCompte[position].MerseCoins < bddShop[article].prix)
                 return client.action(channel, "❌| Vous n'avez pas assez de MerseCoins.");

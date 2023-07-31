@@ -27,7 +27,7 @@ module.exports.run = async (client, message, args) => {
             break;
         const discordUser = message.guild.members.cache.find(member => member.id === tableautrie[i].idDiscord);
         const coins = tableautrie[i].MerseCoins;
-        embedRiche.addFields({ name: `${emoji[i]}| ${discordUser === undefined ? `Utilisateur non trouver` : `${discordUser.user.tag}`} (${tableautrie[i].pseudoTwitch})`, value: `${coins} MerseCoins`});
+        embedRiche.addFields({ name: `${emoji[i]}| ${discordUser === undefined ? `Utilisateur non trouver` : `${discordUser.user.tag}`} (${tableautrie[i].pseudoTwitch})`, value: `${coins} <:mersecoins:1135490066194645002>`});
     }
     message.channel.send({embeds: [embedRiche]});
 }
@@ -49,7 +49,7 @@ module.exports.runSlash = async (client, interaction) => {
             break;
         const discordUser = interaction.guild.members.cache.find(member => member.id === tableautrie[i].idDiscord);
         const coins = tableautrie[i].MerseCoins;
-        embedRiche.addFields({ name: `${emoji[i]}| ${discordUser === undefined ? `Utilisateur non trouver` : `${discordUser.user.tag}`} (${tableautrie[i].pseudoTwitch})`, value: `${coins} MerseCoins`});
+        embedRiche.addFields({ name: `${emoji[i]}| ${discordUser === undefined ? `Utilisateur non trouver` : `${discordUser.user.tag}`} (${tableautrie[i].pseudoTwitch})`, value: `${coins} <:mersecoins:1135490066194645002>`});
     }
     interaction.reply({embeds:[embedRiche]})
 }

@@ -1,6 +1,7 @@
 const ms = require("ms")
 const listeanniv = require('../bdd/listeanniv.json');
 const { idGuild } = require("../bdd/config.json");
+const logger = require("../function/logger");
 
 module.exports = async(client) => {
 
@@ -33,6 +34,7 @@ module.exports = async(client) => {
     }
     console.log(`│${phraseFinal}│`);
     console.log("└──────────────────────────────────────────┘");
+    logger.log("notice", "Le bot a bien démarrer")
 
     function RechercheAnniv() {
         //---------ANNIVERSAIRE---------\\

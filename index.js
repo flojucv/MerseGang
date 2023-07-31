@@ -219,7 +219,7 @@ twitchBot.on("chat", async (channel, user, message, self) => {
 
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
-    const cmd = twitchBot.commands.get(commande) || twitchBot.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commande));
+    const cmd = twitchBot.commands.get(commande);
     if (stream === false && commande != "forcestream") return;
     if (!cmd) return;
 
@@ -312,7 +312,7 @@ let intervalEvent;
 // /-----------------AUTO TWITCH-------------------\ \\
 twitch.on("live", streamData => {
 
-    console.log("Mersedi_ est en live.");
+    logger.warn("Début du live de Mersedi detecter");
     /*const embedStream = new Discord.EmbedBuilder()
         .setColor('#9700C6')
         .setTitle(streamData.title)
@@ -326,13 +326,14 @@ twitch.on("live", streamData => {
         .setFooter('Bot by flojucv');
     client.guilds.cache.get(config.idGuild).channels.cache.find(channel => channel.id === "985048670028312606").send({embeds: [embedStream]});*/
     stream = true;
-    twitchBot.action(config.channels[0], "[TEST] La collecte de point a démarer.");
+    twitchBot.action(config.channels[0], "La collecte de point a démarer.");
     streamEventAndPoint();
 });
 
 
 
 twitch.on("unlive", streamData => {
+    logger.warn("Fin du live de Mersedi detecter");
     stream = false;
     doubleMersecoin = false;
     twitchBot.action(config.channels[0], "La collecte de point c'est arreter.");
@@ -394,7 +395,7 @@ module.exports.setDoubleMersecoins = async function() {
 module.exports.addToList = async function(username) {
     if (await trouverCompteViaTwitch(username) != -1) {
         listeUser.push(username);
-        console.log(`${msgLog(channel)} ${username} à rejoins la collecte de point.`);
+        console.log(`${msgLog(config.channels[0])} ${username} à rejoins la collecte de point.`);
     }
 }
 

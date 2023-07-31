@@ -13,7 +13,7 @@ module.exports.run = async (client, message, args) => {
         }
         const embedShop = new EmbedBuilder()
             .setAuthor({ name: "Bot by flojucv", iconURL: "https://media.discordapp.net/attachments/894234723747004426/995231775762690138/logo512x512.png", url: "https://discord.gg/p2QC3NQSmG" })
-            .setFooter({ text: "MerseCoins SYSTEM" })
+            .setFooter({ text: "MerseCoins SYSTEM", iconURL: "https://cdn.discordapp.com/attachments/1069524271946268672/1135491536126230628/mersecoins.png" })
             .setColor("#5B3EBA")
             .setDescription("Voici la liste de tout ce que vous pouvez achetez avec des MerseCoins.")
             .setTitle("SHOP")
@@ -56,7 +56,7 @@ module.exports.runSlash = async (client, interaction) => {
         }
         const embedShop = new EmbedBuilder()
             .setAuthor({ name: "Bot by flojucv", iconURL: "https://media.discordapp.net/attachments/894234723747004426/995231775762690138/logo512x512.png", url: "https://discord.gg/p2QC3NQSmG" })
-            .setFooter({ text: "MerseCoins SYSTEM" })
+            .setFooter({ text: "MerseCoins SYSTEM", iconURL: "https://cdn.discordapp.com/attachments/1069524271946268672/1135491536126230628/mersecoins.png" })
             .setColor("Purple")
             .setDescription("Voici la liste de tout ce que vous pouvez achetez avec des MerseCoins.")
             .setTitle("SHOP")

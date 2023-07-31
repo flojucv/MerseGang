@@ -10,11 +10,11 @@ module.exports.run = async(client, message, args) => {
 
     const embedCompte = new EmbedBuilder()
     .setAuthor( {name: "Bot by flojucv", iconURL: "https://media.discordapp.net/attachments/894234723747004426/995231775762690138/logo512x512.png", url: "https://discord.gg/p2QC3NQSmG"} )
-    .setFooter({text: "MerseCoins SYSTEM"})
+    .setFooter({text: "MerseCoins SYSTEM", iconURL: "https://cdn.discordapp.com/attachments/1069524271946268672/1135491536126230628/mersecoins.png"})
     .setColor("Purple")
     
 
-    embedCompte.setDescription(`Vous avez **${compte.MerseCoins}** MerseCoins`);
+    embedCompte.setDescription(`Vous avez **${compte.MerseCoins}** <:mersecoins:1135490066194645002>`);
 
     message.channel.send({ embeds: [embedCompte]})
 }
@@ -27,10 +27,10 @@ module.exports.runSlash = async(client, interaction) => {
 
     const embedCompte = new EmbedBuilder()
     .setAuthor( {name: "Bot by flojucv", iconURL: "https://media.discordapp.net/attachments/894234723747004426/995231775762690138/logo512x512.png", url: "https://discord.gg/p2QC3NQSmG"} )
-    .setFooter({text: "MerseCoins SYSTEM"})
+    .setFooter({text: "MerseCoins SYSTEM", iconURL:"https://cdn.discordapp.com/attachments/1069524271946268672/1135491536126230628/mersecoins.png"})
     .setColor("#5B3EBA")
     
-    embedCompte.setDescription(`Vous avez **${compte.MerseCoins}** MerseCoins`);
+    embedCompte.setDescription(`Vous avez **${compte.MerseCoins}** <:mersecoins:1135490066194645002>`);
 
     interaction.reply({ embeds: [embedCompte]})
 }

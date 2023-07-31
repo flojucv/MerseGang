@@ -73,7 +73,7 @@ module.exports.trouverCompteViaTwitch = async function(pseudoTwitch) {
 
 
   await bddCompte.forEach((compte, position) => {
-    if(compte.pseudoTwitch === pseudoTwitch) {
+    if(compte.pseudoTwitch === pseudoTwitch.toLowerCase()) {
       positionFinal = position;
     }
   })

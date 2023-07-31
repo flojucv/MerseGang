@@ -4,7 +4,7 @@ module.exports.run = async(client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "help",
-    aliases: ['help'],
+    aliases: ['aide'],
     cooldown : "1m",
     description : "Commande permettant d'affichez tout les commandes du bots",
     permissions: false
