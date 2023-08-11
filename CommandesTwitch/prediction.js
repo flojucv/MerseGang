@@ -1,7 +1,7 @@
 const bddPrediction = require("../bdd/prediction.json");
 const bddCompte = require("../bdd/compte.json");
 const { saveBdd } = require("../function/bdd.js");
-const { trouverCompteViaTwitch } = require("../function/merseCoinsFunction");
+const { trouverCompteViaTwitch, addMerseCoins } = require("../function/merseCoinsFunction");
 
 module.exports.run = async(client, channel, user, message, self, args) => {
     if(bddPrediction.termine) return client.action(channel, "❌| Il n'y a pas de prédiction en cours.");
@@ -21,30 +21,26 @@ module.exports.run = async(client, channel, user, message, self, args) => {
     if(args[0] ===  "choix1") {
         if(resultReseach === null) {
             bddPrediction.ParticipantChoix1.push({username: user.username, mise: parseInt(args[1])});
-            compte.MerseCoins -= parseInt(args[1]);
+            addMerseCoins(position, -parseInt(args[1]));
             saveBdd("prediction", bddPrediction);
-            saveBdd("compte", bddCompte);
         }else if(resultReseach.choix === 1) {
             bddPrediction.ParticipantChoix1[resultReseach.index].mise += parseInt(args[1]);
-            compte.MerseCoins -= parseInt(args[1]);
+            addMerseCoins(position, -parseInt(args[1]));
             saveBdd("prediction", bddPrediction);
-            saveBdd("compte", bddCompte);
         } else if(resultReseach.choix === 2) {
             return client.action(channel, "❌| Vous ne pouvez pas changer de choix.");
         }
     } else {
         if(resultReseach === null) {
             bddPrediction.ParticipantChoix2.push({username: user.username, mise: parseInt(args[1])});
-            compte.MerseCoins -= args[1];
+            addMerseCoins(position, -parseInt(args[1]));
             saveBdd("prediction", bddPrediction);
-            saveBdd("compte", bddCompte);
         }else if(resultReseach.choix === 1) {
             return client.action(channel, "❌| Vous ne pouvez pas changer de choix.");
         } else if(resultReseach.choix === 2){
             bddPrediction.ParticipantChoix2[resultReseach.index].mise += parseInt(args[1]);
-            compte.MerseCoins -= parseInt(args[1]);
+            addMerseCoins(position, -parseInt(args[1]));
             saveBdd("prediction", bddPrediction);
-            saveBdd("compte", bddCompte);
         }
     }
 

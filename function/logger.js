@@ -1,6 +1,12 @@
 const { createLogger, format, transports} = require("winston");
 var date = new Date();
-const dateJour = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+let month = date.getMonth()+1;
+if(month < 10)
+    month = `0${month}`;
+let jour = date.getDate();
+if(jour < 10)
+    jour = `0${jour}`;
+const dateJour = `${date.getFullYear()}-${month}-${jour}`;
 
 
 const logger = createLogger({

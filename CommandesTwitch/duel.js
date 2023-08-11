@@ -32,7 +32,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
     if (erreur === 1) return;
     await pendingDuel.push({ player1: player1, player2: player2, mise: parseInt(mise), duelInProgress: false });
     await saveBdd("pendingDuel", pendingDuel);
-    client.action(channel, `${player1} défis en duel ${player2}, aura-t-il/elle le courage de l'affronter ?`);
+    client.action(channel, `${player1} défi en duel ${player2}, aura-t-il/elle le courage de l'affronter ? Si tu souhaites te battre fait &accept.`);
     setTimeout(async () => {
         await pendingDuel.forEach((duel, position) => {
             if (duel.player1 === player1 && duel.player2 === player2 && duel.mise === mise && duel.duelInProgress === false) {
@@ -41,7 +41,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
                 client.action(channel, `❌| ${player1}, ${player2} a refusé(e) votre duel !`);
             }
         })
-    }, 10000)
+    }, 30000)
 }
 
 module.exports.help = {

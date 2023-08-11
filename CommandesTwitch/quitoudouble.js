@@ -12,18 +12,16 @@ module.exports.run = async (client, channel, user, message, self, args) => {
     if(bddCompte[position].MerseCoins < mise) return client.action(channel, "❌| Vous n'avez pas assez d'argent !");
     if(10 > mise) return client.action(channel, "❌| Vous ne pouvez pas misé en dessous de 10 MerseCoins !");
 
-    bddCompte[position].MerseCoins -= mise;
+    addMerseCoins(position, -mise);
     const choix = ["gagner", "perdue"];
     const definirChoix = choix[Math.floor(Math.random() * choix.length)];
 
     switch(definirChoix) {
         case 'gagner' :
             
-            addMerseCoins(position, mise*2);
-            saveBdd("compte", bddCompte);
+            addMerseCoins(position, mise*2, true);
             return client.action(channel, `✅| Vous avez gagné ! Tu as gagné ${mise*2} MerseCoins`);
         case 'perdue' :
-            saveBdd("compte", bddCompte);
             return client.action(channel, `❌| Vous avez perdu ! Ta mise était de ${mise} MerseCoins`);
     }
 }

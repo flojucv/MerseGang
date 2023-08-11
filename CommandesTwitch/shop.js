@@ -1,7 +1,7 @@
 const bddShop = require("../bdd/shop.json");
 const bddCompte = require("../bdd/compte.json");
 const { saveBdd } = require("../function/bdd.js");
-const { trouverCompteViaTwitch } = require("../function/merseCoinsFunction");
+const { trouverCompteViaTwitch, addMerseCoins } = require("../function/merseCoinsFunction");
 const indexFile = require("../index");
 
 
@@ -27,8 +27,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
             if(bddCompte[position].MerseCoins < bddShop[article].prix)
                 return client.action(channel, "❌| Vous n'avez pas assez de MerseCoins.");
             else {
-                bddCompte[position].MerseCoins -= bddShop[article].prix;
-                saveBdd("compte", bddCompte);
+                addMerseCoins(position, -parseInt(bddShop[article].prix));
                 indexFile.sendMsgTwitch(`L'utilisateur ${pseudo} a acheter ${bddShop[article].name} !!`);
             }
         }

@@ -3,7 +3,7 @@ const bddCompte = require("../../bdd/compte.json");
 const { EmbedBuilder } = require("discord.js");
 const { saveBdd } = require("../../function/bdd");
 const indexFile = require("../../index");
-const { trouverCompteViaDiscord } = require("../../function/merseCoinsFunction");
+const { trouverCompteViaDiscord, addMerseCoins } = require("../../function/merseCoinsFunction");
 
 module.exports.run = async (client, message, args) => {
     if (!args[0]) {
@@ -38,8 +38,8 @@ module.exports.run = async (client, message, args) => {
             if(compte.MerseCoins < bddShop[article].prix)
                 return message.channel.send("❌| Vous n'avez pas assez de MerseCoins.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
             else {
-                compte.MerseCoins -= bddShop[article].prix;
-                saveBdd("compte", bddCompte);
+                const prix = bddShop[article].prix;
+                addMerseCoins(position, -prix)
                 indexFile.sendMsgTwitch(`L'utilisateur ${pseudo} a acheter ${bddShop[article].name} !!`);
             }
         }
@@ -79,8 +79,8 @@ module.exports.runSlash = async (client, interaction) => {
             if(compte.MerseCoins < bddShop[article].prix)
                 return interaction.reply({content: "❌| Vous n'avez pas assez de MerseCoins.", ephemeral: true});
             else {
-                compte.MerseCoins -= bddShop[article].prix;
-                saveBdd("compte", bddCompte);
+                const prix = bddShop[article].prix;
+                addMerseCoins(position, -prix)
                 indexFile.sendMsgTwitch(`L'utilisateur ${pseudo} a acheter ${bddShop[article].name} !!`);
                 interaction.reply({content: "✅| Achat reussi !", ephemeral: true});
 

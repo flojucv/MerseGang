@@ -1,7 +1,7 @@
 const bddPrediction = require("../bdd/prediction.json");
 const bddCompte = require("../bdd/compte.json");
 const { saveBdd } = require("../function/bdd.js");
-const { trouverCompteViaTwitch } = require("../function/merseCoinsFunction");
+const { trouverCompteViaTwitch, addMerseCoins } = require("../function/merseCoinsFunction");
 
 module.exports.run = async (client, channel, user, message, self, args) => {
     if (bddPrediction.termine) return client.action("❌| Il n'y a pas de prediction en cours.");
@@ -24,8 +24,8 @@ module.exports.run = async (client, channel, user, message, self, args) => {
                 const pourcentage = parseInt((bddPrediction.ParticipantChoix1[i].mise * 100 / miseTotal)) + 1;
                 const gain = parseInt(gainTotal * (pourcentage / 100));
                 const position = await trouverCompteViaTwitch(bddPrediction.ParticipantChoix1[i].username);
-                bddCompte[position].MerseCoins += parseInt(bddPrediction.ParticipantChoix1[i].mise);
-                bddCompte[position].MerseCoins += parseInt(gain);
+                addMerseCoins(position, parseInt(bddPrediction.ParticipantChoix1[i].mise));
+                addMerseCoins(position, parseInt(gain));
             }
 
 
@@ -43,8 +43,8 @@ module.exports.run = async (client, channel, user, message, self, args) => {
                 const pourcentage = parseInt((bddPrediction.ParticipantChoix2[i].mise * 100 / miseTotal)) + 1;
                 const gain = parseInt(gainTotal * (pourcentage / 100));
                 const position = await trouverCompteViaTwitch(bddPrediction.ParticipantChoix2[i].username);
-                bddCompte[position].MerseCoins += parseInt(bddPrediction.ParticipantChoix2[i].mise);
-                bddCompte[position].MerseCoins += parseInt(gain);
+                addMerseCoins(position, parseInt(bddPrediction.ParticipantChoix2[i].mise));
+                addMerseCoins(position, parseInt(gain));
             }
             const choix2 = bddPrediction.Choix2;
             clearBddPrediction(choix2);
@@ -61,7 +61,6 @@ module.exports.run = async (client, channel, user, message, self, args) => {
         bddPrediction.ParticipantChoix2 = [];
         bddPrediction.termine = true;
         saveBdd("prediction", bddPrediction);
-        saveBdd("compte", bddCompte);
         return client.action(channel, `✅| Prediction terminé le bon choix était ${choix}. Tout les gagnants ont reçus leur point !`);
     }
 }

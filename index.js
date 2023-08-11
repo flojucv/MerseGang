@@ -173,7 +173,7 @@ twitchBot.on("chat", async (channel, user, message, self) => {
                     if (message === motDrop) {
                         const coinsAdd = getRandomInt(50, 101);
                         unEvent = false;
-                        addMerseCoins(positionCompte, coinsAdd);
+                        addMerseCoins(positionCompte, coinsAdd, true);
                         twitchBot.action(channel, `${user.username} a récuperer le drop ! il/elle gagne ${coinsAdd} MerseCoins`);
 
                     }
@@ -183,14 +183,14 @@ twitchBot.on("chat", async (channel, user, message, self) => {
                         if (!propositionsEnable) {
                             const coinsAdd = getRandomInt(50, 101);
                             unEvent = false;
-                            addMerseCoins(positionCompte, coinsAdd);
+                            addMerseCoins(positionCompte, coinsAdd, true);
                             twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`);
 
                         } else {
                             const coinsAdd = getRandomInt(25, 51);
                             unEvent = false;
                             propositionsEnable = false;
-                            addMerseCoins(positionCompte, coinsAdd);
+                            addMerseCoins(positionCompte, coinsAdd, true);
                             twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote} (${uneQuestion.id})`)
 
                         }
@@ -198,14 +198,14 @@ twitchBot.on("chat", async (channel, user, message, self) => {
                         if (!propositionsEnable) {
                             const coinsAdd = getRandomInt(50, 101);
                             unEvent = false;
-                            addMerseCoins(positionCompte, coinsAdd);
+                            addMerseCoins(positionCompte, coinsAdd, true);
                             twitchBot.action(channel, `${user.username} a trouvé la réponse a la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote} (${uneQuestion.id})`);
 
                         } else {
                             const coinsAdd = getRandomInt(25, 51);
                             unEvent = false;
                             propositionsEnable = false;
-                            addMerseCoins(positionCompte, coinsAdd);
+                            addMerseCoins(positionCompte, coinsAdd, true);
                             twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`)
 
                         }

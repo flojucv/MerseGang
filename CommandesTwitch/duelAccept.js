@@ -1,6 +1,6 @@
 const pendingDuel = require("../bdd/pendingDuel.json");
 const { saveBdd } = require("../function/bdd");
-const { getRandomInt, trouverCompteViaTwitch } = require("../function/merseCoinsFunction");
+const { getRandomInt, trouverCompteViaTwitch, addMerseCoins } = require("../function/merseCoinsFunction");
 const bddCompte = require("../bdd/compte.json");
 
 module.exports.run = async(client, channel, user, message, self, args) => {
@@ -12,18 +12,17 @@ module.exports.run = async(client, channel, user, message, self, args) => {
             const scorePlayer2 = (await getRandomInt(1, 7) + await getRandomInt(1, 7));
             if(scorePlayer1 > scorePlayer2) {
                 client.action(channel, `Le gagnant du grand duel est ${duel.player1}, il/elle remporte ${duel.mise} !`);
-                bddCompte[await trouverCompteViaTwitch(duel.player1)].MerseCoins += duel.mise;
-                bddCompte[await trouverCompteViaTwitch(duel.player2)].MerseCoins -= duel.mise;
+                addMerseCoins(await trouverCompteViaTwitch(duel.player1), duel.mise);
+                addMerseCoins(await trouverCompteViaTwitch(duel.player2), -duel.mise);
             } else if(scorePlayer2 > scorePlayer1) {
                 client.action(channel, `Le gagnant du grand duel est ${duel.player2}, il/elle remporte ${duel.mise} !`);
-                bddCompte[await trouverCompteViaTwitch(duel.player2)].MerseCoins += duel.mise;
-                bddCompte[await trouverCompteViaTwitch(duel.player1)].MerseCoins -= duel.mise;
+                addMerseCoins(await trouverCompteViaTwitch(duel.player2), duel.mise);
+                addMerseCoins(await trouverCompteViaTwitch(duel.player1), -duel.mise);
             } else {
                 client.action(channel, `Oh non, les deux combattants sont tombés au sol personne n'a gagné.`);
             }
             pendingDuel.splice(position);
             saveBdd("pendingDuel", pendingDuel);
-            saveBdd("compte", bddCompte);
         }
     })
 }

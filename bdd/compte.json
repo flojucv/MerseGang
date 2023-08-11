@@ -3,12 +3,14 @@
         "pseudoTwitch": "mersedi_",
         "idDiscord": "480824773870354464",
         "grade": "viewer",
-        "MerseCoins": 110
+        "MerseCoins": 400,
+        "mariage": "flojucv"
     },
     {
         "pseudoTwitch": "flojucv",
         "idDiscord": "255735907129229314",
         "grade": "viewer",
-        "MerseCoins": 100
+        "MerseCoins": 400,
+        "mariage": "mersedi_"
     }
 ]

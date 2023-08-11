@@ -1,7 +1,5 @@
 const { PermissionsBitField } = require('discord.js');
-const bddCompte = require("../../bdd/compte.json");
-const { saveBdd } = require("../../function/bdd");
-const { trouverCompteViaDiscord } = require('../../function/merseCoinsFunction');
+const { trouverCompteViaDiscord, addMerseCoins } = require('../../function/merseCoinsFunction');
 
 module.exports.run = async (client, message, args) => {
     message.delete();
@@ -15,8 +13,7 @@ module.exports.run = async (client, message, args) => {
     const position = await trouverCompteViaDiscord(target.user.id);
     if (position === -1)
         return message.channel.send("❌| L'utilisateur n'a pas de compte.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
-    bddCompte[position].MerseCoins += parseInt(args[1]);
-    saveBdd("compte", bddCompte);
+    addMerseCoins(position, parseInt(args[1]));
     message.channel.send(`✅| ${args[1]} <:mersecoins:1135490066194645002> ont été donné a ${target.user.tag}.`).then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
 }
 
@@ -30,8 +27,7 @@ module.exports.runSlash = async (client, interaction) => {
 
     if (position === -1)
         return interaction.reply({ content: "❌| L'utilisateur n'a pas de compte.", ephemeral: true });
-    bddCompte[position].MerseCoins += parseInt(nombre);
-    saveBdd("compte", bddCompte);
+    addMerseCoins(position, parseInt(nombre));
     interaction.reply({ content: `✅| ${nombre} <:mersecoins:1135490066194645002> ont été donné a ${target.tag}.`, ephemeral: true });
 }
 
