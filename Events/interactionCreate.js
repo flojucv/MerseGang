@@ -65,6 +65,7 @@ module.exports = async(client, interaction) => {
                 interaction.message.delete();
                 interaction.reply("✅| Votre compte a bien été lier.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
                 index.addToList(pseudoTwitch);
+                logger.log("info", `Compte lier ${pseudoTwitch}`);
             }
         }
     }

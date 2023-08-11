@@ -5,7 +5,7 @@ module.exports.run = async(client, channel, user, message, self, args) => {
 
 module.exports.help = {
     name: "mersegang",
-    aliases: ['mersegang'],
+    aliases: ["mersegang"],
     cooldown : "1m",
     description: "Permet d'avoir une petit description du bot",
     permissions: false

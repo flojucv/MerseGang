@@ -8,10 +8,8 @@ module.exports.run = async(client, channel, user, message, self, args) => {
         if(duel.player2 === user.username && duel.duelInProgress === false) {
             duel.duelInProgress = true;
             saveBdd("pendingDuel", pendingDuel);
-
             const scorePlayer1 = (await getRandomInt(1, 7) + await getRandomInt(1, 7));
             const scorePlayer2 = (await getRandomInt(1, 7) + await getRandomInt(1, 7));
-            console.log(`score ${duel.player1} : ${scorePlayer1}\nscore ${duel.player2} : ${scorePlayer2}`)
             if(scorePlayer1 > scorePlayer2) {
                 client.action(channel, `Le gagnant du grand duel est ${duel.player1}, il/elle remporte ${duel.mise} !`);
                 bddCompte[await trouverCompteViaTwitch(duel.player1)].MerseCoins += duel.mise;

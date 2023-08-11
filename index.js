@@ -114,7 +114,7 @@ const twitchBot = new tmi.Client(options);
 
 twitchBot.connect()
 
-twitchBot.commands = new Map();
+twitchBot.commands = new Discord.Collection();
 twitchBot.cooldowns = new Map();
 
 /**
@@ -219,7 +219,7 @@ twitchBot.on("chat", async (channel, user, message, self) => {
 
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const commande = args.shift();
-    const cmd = twitchBot.commands.get(commande);
+    const cmd = twitchBot.commands.get(commande) || twitchBot.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commande));
     if (stream === false && commande != "forcestream") return;
     if (!cmd) return;
 
