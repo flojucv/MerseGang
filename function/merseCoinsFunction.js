@@ -10,7 +10,7 @@ const { saveBdd } = require("./bdd");
                                                                                  }
  * @returns {String} Une chaine de caractère aléatoire.
  */
-module.exports.strRandom = function (o) {
+module.exports.strRandom = (o) => {
   var a = 10,
     b = 'abcdefghijklmnopqrstuvwxyz',
     c = '',
@@ -43,7 +43,7 @@ module.exports.strRandom = function (o) {
  * @param {int} max Le nombre maximum (exclus) pour l'intervale de valeur.
  * @returns {int} Un nombre aléatoire compris entre le minimum (inclus) et le maximum (exclus).
  */
-module.exports.getRandomInt = function (min, max) {
+module.exports.getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
@@ -53,8 +53,9 @@ module.exports.getRandomInt = function (min, max) {
  * 
  * @param {int} position La position du compte dans le tableau des comptes.
  * @param {*} addMerseCoins Le nombre de merseCoins que l'on souhaite ajouter.
+ * @param {boolean} multiplicateur true si le multiplicateur doit être appliquer, false ou rien si il ne doit pas être appliqué
  */
-module.exports.addMerseCoins = function (position, addMerseCoins, multiplicateur = false) {
+module.exports.addMerseCoins = async (position, addMerseCoins, multiplicateur = false) => {
   const bddCompte = require("../bdd/compte.json");
   const bddGrade = require("../bdd/grade.json");
   const compte = bddCompte[position];
@@ -72,7 +73,12 @@ module.exports.addMerseCoins = function (position, addMerseCoins, multiplicateur
   }
 }
 
-module.exports.trouverCompteViaTwitch = async function (pseudoTwitch) {
+/**
+ * 
+ * @param {string} pseudoTwitch Le pseudo twitch de la personne a qui on recherche le compte
+ * @returns La position du compte de l'utilisateur dans le bdd
+ */
+module.exports.trouverCompteViaTwitch = async (pseudoTwitch) => {
   const bddCompte = require("../bdd/compte.json");
   let positionFinal = -1;
 
@@ -87,7 +93,12 @@ module.exports.trouverCompteViaTwitch = async function (pseudoTwitch) {
 
 }
 
-module.exports.trouverCompteViaDiscord = async function (idDiscord) {
+/**
+ * 
+ * @param {int} idDiscord L'id discord de l'utilisateur a qui on recherche le compte
+ * @returns La position du compte de l'utilisateur dans la bdd
+ */
+module.exports.trouverCompteViaDiscord = async (idDiscord) => {
   const bddCompte = require("../bdd/compte.json");
   let positionFinal = -1;
 
