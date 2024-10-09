@@ -16,7 +16,7 @@ module.exports = async (client) => {
 
 
     const cmdGuild = await client.guilds.cache.get(idGuild);
-
+    if(!cmdGuild) return logger.error(`[Discord] Impossible de trouver le serveur pour le bot ${client.user.username}`);
     cmdGuild.commands.set(client.commands.map(cmd => cmd.help));
     client.guilds.cache.get(idGuild).members.fetch({ force: true }).then(console.log("membre fetch !"))
 

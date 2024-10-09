@@ -15,6 +15,7 @@ module.exports = async (client, interaction) => {
         logger.info(`[Discord] Commande ${cmd.help.name} executez par ${interaction.user.tag}`);
         cmd.runSlash(client, interaction);
     } else if (interaction.isButton()) {
+        console.log(interaction.customId);
         /*if(interaction.channel.id === "989083104054505562") {
 
             if(vote.indexOf(interaction.member.id) === -1){
@@ -64,11 +65,12 @@ module.exports = async (client, interaction) => {
             } else {
                 const sqlInsertCompte = "INSERT INTO compte (twitch, discord, grade, mersecoins) VALUES (?, ?, (SELECT id_grade FROM grade WHERE grade_name = ?), ?)";
                 const response = await db.query(sqlInsertCompte, [pseudoTwitch, interaction.user.id, 'viewer', 0]);
+                console.log(response);
                 interaction.message.delete();
                 if (response) {
-                    interaction.channel.send("✅| Votre compte a bien été lier.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
+                    interaction.reply("✅| Votre compte a bien été lier.").then(message => { setTimeout(() => message.delete().catch(err => console.log(err)), 5000); });
                     const sqlSearchAccount = "SELECT * FROM compte WHERE twitch = ?";
-                    const comptes = await db.query(sqlSearchAccount, [username]);
+                    const comptes = await db.query(sqlSearchAccount, [pseudoTwitch]);
                     if (comptes.length == 1) {
                         twitchJson.listeUser.push(username);
                         saveBdd('twitch', twitchJson);

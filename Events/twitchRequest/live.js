@@ -8,6 +8,7 @@ const { startIntervalEventAndPoint } = require("../../function/streamEventAndPoi
 module.exports = (twitch, streamData) => {
     logger.warn("[TWITCH] Début du live de Mersedi detecter");
     twitchBdd.stream = true;
+    twitchBdd.listeUser = [];
     saveBdd("twitch", twitchBdd);
     twitchBot.action(config.channels[0], "La collecte de point a démarrer.");
     startIntervalEventAndPoint();

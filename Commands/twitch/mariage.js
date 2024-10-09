@@ -23,7 +23,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 
     pendingMariage.push({ marier1: marier1, marier2: marier2, pending: true });
     saveBdd("pendingMariage", pendingMariage);
-    client.action(channel, `${marier2} souhaitez-vous prendre pour époux jusqu'à la fin de votre vie ${marier1} ? (vous avez 30s pour répondre)`)
+    client.action(channel, `${marier2} souhaitez-vous prendre pour époux jusqu'à la fin de votre vie ${marier1} ? (vous avez 30s pour répondre &acceptMariage pour accepter)`)
 
     return setTimeout(async () => {
         await pendingMariage.forEach((mariage, position) => {

@@ -1,7 +1,9 @@
 const pendingDuel = require("../../bdd/pendingDuel.json");
 const db = require('../../function/db');
+const { saveBdd } = require('../../function/bdd');
 
 module.exports.run = async (client, channel, user, message, self, args) => {
+    console.log(pendingDuel);
     if (!args[0]) return client.action(channel, "❌| Vous n'avez pas mis de mise");
     if (isNaN(args[0]) || args[0] < 10) return client.action(channel, "❌| Vous n'avez pas mis un nombre ou votre mise est inférieure à 10");
     const mise = parseInt(args[0]);

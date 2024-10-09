@@ -18,8 +18,6 @@ module.exports.run = async (client, channel, user, message, self, args) => {
         const article = shop.filter((article) => article.id_shop == args[0])[0];
         const pseudo = user.username;
 
-        console.log(shop)
-        console.log(article);
         if (!article) return client.action(channel, "❌| Aucun article trouvée");
         const sqlCompte = "SELECT * FROM compte WHERE twitch = ?";
         const comptes = await db.query(sqlCompte, [pseudo]);
@@ -33,7 +31,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
                 return client.action(channel, "❌| Vous n'avez pas assez de MerseCoins.");
             else {
                 addMerseCoins(compte.twitch, -parseInt(article.prix));
-                indexFile.sendMsgTwitch(`L'utilisateur ${compte.twitch} a acheter ${article.article_name} !!`);
+                client.action(channel, `L'utilisateur ${compte.twitch} a acheter ${article.article_name} !!`);
             }
         }
 

@@ -4,9 +4,9 @@ const { getRandomInt, addMerseCoins } = require('../../function/merseCoinsFuncti
 const db = require('../../function/db');
 const { prefix } = require('../../bdd/config.json');
 const logger = require('../../function/logger');
+const ms = require('ms');
 
 module.exports = async (twitchBot, channel, user, message, self) => {
-    console.log(user.username);
     if(self || user.username=== "MerseGang" || channel != "#mersedi_") return;
 
     if(twitchBdd.unEvent) {
