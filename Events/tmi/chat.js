@@ -10,10 +10,12 @@ module.exports = async (twitchBot, channel, user, message, self) => {
     if(self || user.username=== "MerseGang" || channel != "#mersedi_") return;
 
     if(twitchBdd.unEvent) {
+        console.log(twitchBdd)
         const sqlSearchAccount = "SELECT * FROM compte WHERE twitch = ?";
         const comptes = await db.query(sqlSearchAccount, [user.username]);
         if(comptes.length == 1) {
             const compte = comptes[0];
+            console.log(twitchBdd)
             switch(twitchBdd.typeEvent) {
                 case "drop":
                     if(message === motDrop) {
