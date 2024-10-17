@@ -10,15 +10,13 @@ module.exports = async (twitchBot, channel, user, message, self) => {
     if(self || user.username=== "MerseGang" || channel != "#mersedi_") return;
 
     if(twitchBdd.unEvent) {
-        console.log(twitchBdd)
         const sqlSearchAccount = "SELECT * FROM compte WHERE twitch = ?";
         const comptes = await db.query(sqlSearchAccount, [user.username]);
         if(comptes.length == 1) {
             const compte = comptes[0];
-            console.log(twitchBdd)
             switch(twitchBdd.typeEvent) {
                 case "drop":
-                    if(message === motDrop) {
+                    if(message === twitchBdd.motDrop) {
                         const coinsAdd = getRandomInt(50, 101);
                         twitchBdd.unEvent = false;
                         saveBdd('twitch', twitchBdd);
@@ -26,15 +24,15 @@ module.exports = async (twitchBot, channel, user, message, self) => {
                         twitchBot.action(channel, `${user.username}  a récuperer le drop ! il/elle gagne ${coinsAdd} MerseCoins`);
                     }
                     break;
-                case "question": 
+                case "question":
                     if(message.toLowerCase() === twitchBdd.uneQuestion.reponse.toLowerCase() || (twitchBdd.uneQuestion.alias.indexOf(message.toLowerCase()) != -1)) {
                         let coinsAdd = 0;
                         if(twitchBdd.propositionEnable) {
                             coinsAdd = getRandomInt(25, 51);
-                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote} (${uneQuestion.id})`);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse a la question ! il/elle gagne ${coinsAdd} MerseCoins | ${twitchBdd.uneQuestion.anecdote} (${twitchBdd.uneQuestion.id})`);
                         } else {
                             coinsAdd = getRandomInt(50, 101);
-                            twitchBot.action(channel, `${user.username} a trouvé la réponse à la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${uneQuestion.anecdote}`);
+                            twitchBot.action(channel, `${user.username} a trouvé la réponse à la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${twitchBdd.uneQuestion.anecdote} (${twitchBdd.uneQuestion.id})`);
                         }
                         twitchBdd.unEvent = false;
                         propositionEnable = false;

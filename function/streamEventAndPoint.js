@@ -42,7 +42,7 @@ module.exports.startIntervalEventAndPoint = () => {
         console.log("───────────────────────────────");
     }, ms("1m"));
 
-    intervalEvent = setTimeout(() => {
+    intervalEvent = setInterval(() => {
         let event = ["drop", "question", "question"];
         switch (event[Math.floor(Math.random() * event.length)]) {
             case "drop":
@@ -60,7 +60,7 @@ module.exports.startIntervalEventAndPoint = () => {
             case "question":
                 twitchJson.typeEvent = "question";
                 twitchJson.uneQuestion = bddQuestion[Math.floor(Math.random() * bddQuestion.length)];
-                unEvent = true;
+                twitchJson.unEvent = true;
                 saveBdd('twitch', twitchJson);
                 twitchBot.action(config.channels[0], `${twitchJson.uneQuestion.question}`);
                 console.log(`Question : ${twitchJson.uneQuestion.question}\nRéponse : ${twitchJson.uneQuestion.reponse}\nAlias : ${twitchJson.uneQuestion.alias}`);
