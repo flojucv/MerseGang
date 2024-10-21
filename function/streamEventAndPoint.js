@@ -69,7 +69,7 @@ module.exports.startIntervalEventAndPoint = () => {
                     if (twitchJson.unEvent) {
                         twitchJson.propositionsEnable = true;
                         saveBdd('twitch', twitchJson)
-                        twitchBot.action(config.channels[0], `Personne n'a trouver la réponse, voici un rappelle de la question : ${twitchJson.uneQuestion.question} et voici les propositions : 1| ${twitchJson.uneQuestion.propositions[0]}, 2| ${twitchJson.uneQuestion.propositions[1]}, 3| ${twitchJson.uneQuestion.propositions[2]}, 4| ${twitchJson.uneQuestion.propositions[3]}`)
+                        twitchBot.action(config.channels[0], `Personne n'a trouver la réponse, voici un rappelle de la question : ${twitchJson.uneQuestion.question} et voici les propositions : 1| ${twitchJson.uneQuestion.propositions[0]}, 2| ${twitchJson.uneQuestion.propositions[1]}, 3| ${twitchJson.uneQuestion.propositions[2]}, 4| ${twitchJson.uneQuestion.propositions[3]} (${twitchJson.uneQuestion.id})`);
                     }
                 }, ms("2m"));
                 break;

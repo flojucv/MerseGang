@@ -27,7 +27,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 module.exports.help = {
     name: "forcestream",
     aliases: ['forcestream'],
-    cooldown: "1m",
+    cooldown: "1s",
     description: "Permet de forcé le lancement des fonctions",
     permissions: "users",
     users: ["flojucv", "mersedi_"]

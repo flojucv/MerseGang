@@ -25,7 +25,7 @@ module.exports = async (twitchBot, channel, user, message, self) => {
                     }
                     break;
                 case "question":
-                    if(message.toLowerCase() === twitchBdd.uneQuestion.reponse.toLowerCase() || (twitchBdd.uneQuestion.alias.indexOf(message.toLowerCase()) != -1)) {
+                    if(message.toLowerCase() === twitchBdd.uneQuestion.reponse.toLowerCase() || (twitchBdd.uneQuestion.alias.map(element => element.toLowerCase()).indexOf(message.toLowerCase()) != -1)) {
                         let coinsAdd = 0;
                         if(twitchBdd.propositionEnable) {
                             coinsAdd = getRandomInt(25, 51);
@@ -60,7 +60,7 @@ module.exports = async (twitchBot, channel, user, message, self) => {
     const cdAmount = ms(cmd.help.cooldown);
 
     if(tStamps.has(user["user-id"])) {
-        const cdExpirationTime = tStamps.get(user['user-id']);
+        const cdExpirationTime = tStamps.get(user['user-id']) + cdAmount;
 
         if(timeNow < cdExpirationTime) {
             timeLeft = (cdExpirationTime - timeNow) / 1000;

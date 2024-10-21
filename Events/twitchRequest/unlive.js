@@ -5,6 +5,7 @@ const { stopIntervalEventAndPoint } = require("../../function/streamEventAndPoin
 
 module.exports = (twitch, streamData) => {
     logger.warn('[TWITCH] Fin du live de Mersedi detecter');
+    console.log(twitchBdd);
     twitchBdd.stream = false;
     twitchBdd.doubleMersecoins = false;
     twitchBdd.unEvent = false;
