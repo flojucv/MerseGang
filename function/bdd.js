@@ -23,7 +23,7 @@ module.exports.saveBdd = function(bdd, functionBdd) {
                 if(err) message.channel.send("Une erreur est survenue.");
             })
         }else {
-            console.log("[ERROR] La base de donnée que vous voulez sauvegardez n'existe pas");
+            console.log(`[ERROR] La base de donnée ${bdd} que vous voulez sauvegardez n'existe pas`);
         }
     });
 }

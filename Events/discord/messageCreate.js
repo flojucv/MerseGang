@@ -27,7 +27,6 @@ module.exports = async (client, message) => {
 
         if(Array.from(message.attachments)[0] != undefined) {
             urlAttachment = Array.from(message.attachments)[0][1].url;
-            console.log(urlAttachment.toString());
             embedVote.setImage(`${urlAttachment.toString()}`)
         }
 

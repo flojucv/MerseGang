@@ -6,7 +6,6 @@ module.exports.runSlash = async(client, interaction) => {
     const valideOrRefuse = interaction.options.getString("choix");
     const idMessage = interaction.options.getString('id_message');
 
-    console.log(idMessage)
     if(isNaN(idMessage)) return interaction.reply({content: "❌| L'id doit être un nombre.", ephemeral: true });
 
     let messageEdit = await interaction.guild.channels.cache.find(channel => channel.id === "1009370795178459156").messages.fetch(idMessage).catch(err => {

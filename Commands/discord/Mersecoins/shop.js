@@ -28,7 +28,6 @@ module.exports.runSlash = async (client, interaction) => {
     } else {
         if (item < 1 || item > shop.length) return interaction.reply({content: `❌| Vous devez rentrer un nombre compris entre 1 et ${shop.length}.`, ephemeral: true});
         const article = shop[item-1];
-        console.log(article)
         const sqlCompte = "SELECT * FROM compte WHERE discord = ?";
         const comptes = await db.query(sqlCompte, [interaction.user.id]);
         if (comptes.length == 0) {

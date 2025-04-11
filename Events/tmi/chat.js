@@ -25,7 +25,8 @@ module.exports = async (twitchBot, channel, user, message, self) => {
                     }
                     break;
                 case "question":
-                    if(message.toLowerCase() === twitchBdd.uneQuestion.reponse.toLowerCase() || (twitchBdd.uneQuestion.alias.map(element => element.toLowerCase()).indexOf(message.toLowerCase()) != -1)) {
+                    console.log(twitchBdd.uneQuestion);
+                    if(message.toLowerCase() === twitchBdd.uneQuestion.response.toLowerCase() || (twitchBdd.uneQuestion.alias != null && (twitchBdd.uneQuestion.alias.map(element => element.toLowerCase()).indexOf(message.toLowerCase()) != -1))) {
                         let coinsAdd = 0;
                         if(twitchBdd.propositionEnable) {
                             coinsAdd = getRandomInt(25, 51);

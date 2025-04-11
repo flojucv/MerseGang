@@ -1,7 +1,5 @@
 const { PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
-const bddQuizz = require("../../../bdd/quizz.json");
-const { saveBdd } = require('../../../function/bdd');
-
+const db = require("../../../function/db");
 
 module.exports.runSlash = async (client, interaction) => {
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) return interaction.reply({ content: "❌| Vous n'avez pas la permissions d'utilisez cette commande.", ephemeral: true });
@@ -11,9 +9,14 @@ module.exports.runSlash = async (client, interaction) => {
     const prmReponse = interaction.options.getString("reponse");
     const prmAnecdote = interaction.options.getString("anecdote");
 
-    bddQuizz.push({id: bddQuizz.length+1, question: prmQuestion, propositions: prmProposition, reponse: prmReponse, anecdote: prmAnecdote, alias: []});
-    saveBdd("quizz", bddQuizz);
-    interaction.reply({content: "✅| question ajouté.", ephemeral: true});
+    const sql = `INSERT INTO quizz (question, propositions, response, anecdote, alias) VALUES (?, ?, ?, ?, ?)`;
+    const values = [prmQuestion, JSON.stringify(prmProposition), prmReponse, prmAnecdote, null];
+    const result = await db.query(sql, values);
+    console.log(result);
+    if (result.affectedRows === 0) return interaction.reply({ content: "❌| Une erreur s'est produite lors de l'ajout de la question.", ephemeral: true });
+    const sql2 = `SELECT * FROM quizz WHERE id = ?`;
+    const result2 = await db.query(sql2, [result.insertId]);
+    interaction.reply({content: `✅| Question ajouté. \nQuestion: ${result2[0].question}\nProposition: ${result2[0].propositions.join(", ")}\nReponse: ${result2[0].response}\nAnecdote: ${result2[0].anecdote}`, ephemeral: true});
 }
 
 module.exports.help = {

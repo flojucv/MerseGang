@@ -64,11 +64,10 @@ module.exports = async (client) => {
             if (response.length == 0) return;
             console.log("Recherche d'un anniversaire...");
             response.forEach((anniv) => {
-                console.log(anniv)
                 client.channels.cache.find(channel => channel.id === "985048672125452329").send(`C'est l'anniversaire de <@${anniv.id_discord}> !\n\nOn fête ses ${(annee - anniv.annee)} ans !!`);
-                console.log(`anniversaire de ${anniv.id_discord}`);
+                console.log(`Anniversaire de ${anniv.id_discord}`);
             })
-            console.log("fin de la recherche d'anniversaire");
+            console.log("Fin de la recherche d'anniversaire");
             console.log("─────────────────────────────");
         }
     }

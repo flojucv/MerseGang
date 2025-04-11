@@ -1,7 +1,7 @@
 const logger = require("../../function/logger");
 const twitchBdd = require('../../bdd/twitch.json');
 const { saveBdd } = require("../../function/bdd");
-const twitchBot = require("../../Connect/tmiConnect");
+const twitchBot = require("../../Connect/tmiConnect"); 
 const config = require('../../bdd/config.json');
 const { startIntervalEventAndPoint } = require("../../function/streamEventAndPoint");
 

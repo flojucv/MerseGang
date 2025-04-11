@@ -1,9 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const db = require('../../../function/db');
 
-module.exports.runSlash = async(client, interaction) => {
-    console.log(`[LOG][SLASH] Commande listeanniv executer par ${interaction.user.username}`);
-    
+module.exports.runSlash = async(client, interaction) => {    
     const sql = "SELECT * FROM anniversaire";
     const response = await db.query(sql);
 

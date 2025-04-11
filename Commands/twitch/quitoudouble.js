@@ -1,5 +1,7 @@
 const { addMerseCoins } = require("../../function/merseCoinsFunction");
+const twitchJson = require('../../bdd/twitch.json');
 const db = require('../../function/db');
+const { saveBdd } = require("../../function/bdd");
 
 
 module.exports.run = async (client, channel, user, message, self, args) => {
@@ -23,6 +25,8 @@ module.exports.run = async (client, channel, user, message, self, args) => {
             addMerseCoins(response[0].twitch, mise * 2, true);
             return client.action(channel, `✅| Vous avez gagné ! Vous avez gagné ${mise * 2} MerseCoins`);
         case 'perdue':
+            twitchJson.qod += mise;
+            saveBdd('twitch', twitchJson);
             return client.action(channel, `❌| Vous avez perdu ! Votre mise était de ${mise} MerseCoins`);
     }
 }
@@ -30,7 +34,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 module.exports.help = {
     name: "quitoudouble",
     aliases: ['qod'],
-    cooldown: "10m",
+    cooldown: "15m",
     description: "Doublez votre mise ou perdez tout ! (mise minimale : 10 MerseCoins)",
     permissions: false,
 }

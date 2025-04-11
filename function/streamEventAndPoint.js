@@ -2,7 +2,6 @@ const config = require('../bdd/config.json');
 const twitchJson = require('../bdd/twitch.json');
 const twitchBot = require('../Connect/tmiConnect');
 const { saveBdd } = require('./bdd');
-const bddQuestion = require('../bdd/quizz.json');
 const db = require('./db');
 const { addMerseCoins, strRandom } = require('./merseCoinsFunction');
 const ms = require('ms');
@@ -42,7 +41,7 @@ module.exports.startIntervalEventAndPoint = () => {
         console.log("───────────────────────────────");
     }, ms("1m"));
 
-    intervalEvent = setInterval(() => {
+    intervalEvent = setInterval(async () => {
         let event = ["drop", "question", "question"];
         switch (event[Math.floor(Math.random() * event.length)]) {
             case "drop":
@@ -59,11 +58,13 @@ module.exports.startIntervalEventAndPoint = () => {
                 break;
             case "question":
                 twitchJson.typeEvent = "question";
-                twitchJson.uneQuestion = bddQuestion[Math.floor(Math.random() * bddQuestion.length)];
+                const sql = "SELECT id, question, response, alias, propositions, anecdote FROM quizz";
+                const quizz = await db.query(sql);
+                twitchJson.uneQuestion = quizz[Math.floor(Math.random() * bddQuestion.length)];
                 twitchJson.unEvent = true;
                 saveBdd('twitch', twitchJson);
                 twitchBot.action(config.channels[0], `${twitchJson.uneQuestion.question}`);
-                console.log(`Question : ${twitchJson.uneQuestion.question}\nRéponse : ${twitchJson.uneQuestion.reponse}\nAlias : ${twitchJson.uneQuestion.alias}`);
+                console.log(`Question : ${twitchJson.uneQuestion.question}\nRéponse : ${twitchJson.uneQuestion.response}\nAlias : ${twitchJson.uneQuestion.alias}`);
 
                 setTimeout(() => {
                     if (twitchJson.unEvent) {
@@ -75,6 +76,11 @@ module.exports.startIntervalEventAndPoint = () => {
                 break;
         }
     }, ms('15m'));
+
+    if(twitchJson.qod != 0) {
+        twitchJson.qod = 0;
+        saveBdd('twitch', twitchJson);
+    }
 }
 
 /**

@@ -15,7 +15,6 @@ module.exports.runSlash = async(client, interaction) => {
         const sqlInsert = "INSERT INTO anniversaire (id_discord, date_anniv) VALUES (?, ?)";
         const response = await db.query(sqlInsert, [interaction.user.id, date]);
 
-        console.log(response);
         if(response) {
             return interaction.reply({content : "✅| Date d'anniversaire ajouter !", ephemeral: true});
         } else {

@@ -12,7 +12,7 @@ module.exports.runSlash = async(client, interaction) => {
     const sql = "SELECT * FROM compte INNER JOIN grade ON grade.id_grade = compte.grade WHERE discord = ?";
     const response = await db.query(sql, [user.id]);
     
-    if( response.length == 0) { link = "Non lier"; money = 0; grade = "aucun"} else { link = response[0].twitch; money = response[0].mersecoins; grade = response[0].grade_name; };
+    if( response.length == 0) { link = "Non lier"; money = 0; grade = "aucun"; mariage = "Célibataire"} else { link = response[0].twitch; money = response[0].mersecoins; grade = response[0].grade_name; mariage = response[0].mariage; };
 
     grade = grade.charAt(0).toUpperCase() + grade.slice(1);
 
@@ -32,6 +32,7 @@ module.exports.runSlash = async(client, interaction) => {
         { name: "Compte lier : ", value: `${link}`, inline: true },
         { name: "MerseCoins : ", value : `${money}`, inline: true },
         { name: "Grade : ", value : `${grade}`, inline: true },
+        { name: "Mariage :", value: `${mariage}` }
     )
     .setFooter({text: `Commande executez par ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL()})
     .setTimestamp();
