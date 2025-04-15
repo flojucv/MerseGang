@@ -13,6 +13,7 @@ module.exports.run = async (client, channel, user, message, self, args) => {
         twitchJson.qod = 0;
         saveBdd('twitch', twitchJson);
 
+        console.log(`Remboursement de ${refund} MerseCoins a ${randomUser}`);
         client.action(channel, `✅| ${randomUser} a gagné 30% des mersecoins perdu au Quit ou Double (${refund} MerseCoins) !`);
     } else {
         client.action(channel, "❌| Il n'y a pas de mersecoins a rembourser !");
