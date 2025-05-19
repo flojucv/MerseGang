@@ -25,7 +25,6 @@ module.exports = async (twitchBot, channel, user, message, self) => {
                     }
                     break;
                 case "question":
-                    console.log(twitchBdd.uneQuestion);
                     if(message.toLowerCase() === twitchBdd.uneQuestion.response.toLowerCase() || (twitchBdd.uneQuestion.alias != null && (twitchBdd.uneQuestion.alias.map(element => element.toLowerCase()).indexOf(message.toLowerCase()) != -1))) {
                         let coinsAdd = 0;
                         if(twitchBdd.propositionEnable) {
@@ -36,7 +35,7 @@ module.exports = async (twitchBot, channel, user, message, self) => {
                             twitchBot.action(channel, `${user.username} a trouvé la réponse à la question est sans les propositions ! il/elle gagne ${coinsAdd} MerseCoins | ${twitchBdd.uneQuestion.anecdote} (${twitchBdd.uneQuestion.id})`);
                         }
                         twitchBdd.unEvent = false;
-                        propositionEnable = false;
+                        twitchBdd.propositionEnable = false;
                         saveBdd("twitch", twitchBdd);
                         addMerseCoins(compte.twitch, coinsAdd, true);
                     }

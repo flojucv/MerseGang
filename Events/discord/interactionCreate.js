@@ -82,5 +82,10 @@ module.exports = async (client, interaction) => {
 
             }
         }
+    } else if(interaction.isModalSubmit()) {
+        const cmd = client.modals.get(interaction.customId);
+        if (!cmd) return interaction.reply("Erreur, cette commande n'existe pas");
+        logger.info(`[Discord] Modal ${interaction.customId} executez par ${interaction.user.tag}`);
+        cmd(client, interaction);
     }
 };

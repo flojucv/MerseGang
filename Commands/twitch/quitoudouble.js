@@ -22,8 +22,8 @@ module.exports.run = async (client, channel, user, message, self, args) => {
 
     switch (definirChoix) {
         case 'gagner':
-            addMerseCoins(response[0].twitch, mise * 2, true);
-            return client.action(channel, `✅| Vous avez gagné ! Vous avez gagné ${mise * 2} MerseCoins`);
+            const gains = addMerseCoins(response[0].twitch, mise * 2, true);
+            return client.action(channel, `✅| Vous avez gagné ! Vous avez gagné ${gains} MerseCoins`);
         case 'perdue':
             twitchJson.qod += mise;
             saveBdd('twitch', twitchJson);

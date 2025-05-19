@@ -51,33 +51,61 @@ module.exports.getRandomInt = (min, max) => {
 
 /**
  * 
- * @param {string} twitch Le pseudo twitch de l'utilisateur.
+ * @param {string} id L'id de l'utilisateur.
  * @param {*} addMerseCoins Le nombre de merseCoins que l'on souhaite ajouter.
  * @param {boolean} multiplicateur true si le multiplicateur doit être appliquer, false ou rien si il ne doit pas être appliqué
+ * @param {twitch | discord} plateforme La plateforme de l'utilisateur (twitch ou discord).
  */
-module.exports.addMerseCoins = async (twitch, addMerseCoins, multiplicateur = false) => {
+module.exports.addMerseCoins = async (id, addMerseCoins, multiplicateur = false, plateforme = "twitch") => {
 
-  const sqlCompte = "SELECT * FROM compte INNER JOIN grade ON compte.grade = grade.id_grade WHERE twitch = ?";
-  const response = await db.query(sqlCompte, [twitch]);
+  let sqlCompte = "SELECT * FROM compte INNER JOIN grade ON compte.grade = grade.id_grade";
+  sqlCompte += (plateforme == "twitch") ? " WHERE twitch = ?" : " WHERE discord = ?";
+  const response = await db.query(sqlCompte, [id]);
 
   if (multiplicateur === true && response.length != 0) {
     const calcul = addMerseCoins * response[0].multiplicateur;
 
     if(response[0].mariage != null) {
-      const sql = "UPDATE compte SET mersecoins = mersecoins+? WHERE twitch = ? OR twitch = ?";
-      await db.query(sql, [parseInt(calcul), twitch, response[0].mariage]);
+      let sql = "UPDATE compte SET mersecoins = mersecoins+? ";
+      sql += (plateforme == "twitch") ? " WHERE twitch = ? OR twitch = ?" : " WHERE discord = ? OR twitch = ?";
+      await db.query(sql, [parseInt(calcul), id, response[0].mariage]);
     } else {
-      const sql = "UPDATE compte SET mersecoins = mersecoins+? WHERE twitch = ?";
-      await db.query(sql, [parseInt(calcul), twitch]);
+      let sql = "UPDATE compte SET mersecoins = mersecoins+?";
+      sql += (plateforme == "twitch") ? " WHERE twitch = ?" : " WHERE discord = ?";
+      await db.query(sql, [parseInt(calcul), id]);
     }
+
+    return Math.floor(calcul);
 
   } else if(response.length != 0) {
     if(response[0].mariage != null) {
-      const sql = "UPDATE compte SET mersecoins = mersecoins+? WHERE twitch = ? OR twitch = ?";
-      await db.query(sql, [parseInt(addMerseCoins), twitch, response[0].mariage]);
+      let sql = "UPDATE compte SET mersecoins = mersecoins+?";
+      sql += (plateforme == "twitch") ? " WHERE twitch = ? OR twitch = ?" : " WHERE discord = ? OR twitch = ?";
+      await db.query(sql, [parseInt(addMerseCoins), id, response[0].mariage]);
     } else {
-      const sql = "UPDATE compte SET mersecoins = mersecoins+? WHERE twitch = ?";
-      await db.query(sql, [parseInt(addMerseCoins), twitch]);
+      let sql = "UPDATE compte SET mersecoins = mersecoins+?";
+      sql += (plateforme == "twitch") ? " WHERE twitch = ?" : " WHERE discord = ?";
+      await db.query(sql, [parseInt(addMerseCoins), id]);
     }
+
+    return Math.floor(addMerseCoins);
+  }
+}
+
+/**
+ * 
+ * @param {string} id L'id de l'utilisateur.
+ * @param {twitch | discord} plateforme La plateforme de l'utilisateur (twitch ou discord).
+ * @returns {int | undefined} Le nombre de merseCoins de l'utilisateur ou undefined si l'utilisateur n'existe pas.
+ */
+module.exports.getMerseCoins = async (id, plateforme="discord") => {
+  let sql = "SELECT mersecoins FROM compte";
+  sql += (plateforme == "discord") ? " WHERE discord = ?" : " WHERE twitch = ?";
+
+  const response = await db.query(sql, [id]);
+  if (response.length != 0) {
+    return response[0].mersecoins;
+  } else {
+    return undefined;
   }
 }

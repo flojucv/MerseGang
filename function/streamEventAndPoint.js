@@ -42,7 +42,7 @@ module.exports.startIntervalEventAndPoint = () => {
     }, ms("1m"));
 
     intervalEvent = setInterval(async () => {
-        let event = ["drop", "question", "question"];
+        let event = ["question", "question", "question"];
         switch (event[Math.floor(Math.random() * event.length)]) {
             case "drop":
                 twitchJson.typeEvent = "drop";
@@ -60,7 +60,7 @@ module.exports.startIntervalEventAndPoint = () => {
                 twitchJson.typeEvent = "question";
                 const sql = "SELECT id, question, response, alias, propositions, anecdote FROM quizz";
                 const quizz = await db.query(sql);
-                twitchJson.uneQuestion = quizz[Math.floor(Math.random() * bddQuestion.length)];
+                twitchJson.uneQuestion = quizz[Math.floor(Math.random() * quizz.length)];
                 twitchJson.unEvent = true;
                 saveBdd('twitch', twitchJson);
                 twitchBot.action(config.channels[0], `${twitchJson.uneQuestion.question}`);
@@ -68,14 +68,14 @@ module.exports.startIntervalEventAndPoint = () => {
 
                 setTimeout(() => {
                     if (twitchJson.unEvent) {
-                        twitchJson.propositionsEnable = true;
+                        twitchJson.propositionEnable = true;
                         saveBdd('twitch', twitchJson)
                         twitchBot.action(config.channels[0], `Personne n'a trouver la réponse, voici un rappelle de la question : ${twitchJson.uneQuestion.question} et voici les propositions : 1| ${twitchJson.uneQuestion.propositions[0]}, 2| ${twitchJson.uneQuestion.propositions[1]}, 3| ${twitchJson.uneQuestion.propositions[2]}, 4| ${twitchJson.uneQuestion.propositions[3]} (${twitchJson.uneQuestion.id})`);
                     }
                 }, ms("2m"));
                 break;
         }
-    }, ms('15m'));
+    }, ms('30m'));
 
     if(twitchJson.qod != 0) {
         twitchJson.qod = 0;

@@ -13,5 +13,8 @@ const client = new Discord.Client({
 });
 client.login(process.env.Token);
 client.commands = new Discord.Collection();
+client.modals = new Discord.Collection();
+client.activeGamesBlackjack = new Discord.Collection();
+client.activeGamesRoulette = new Discord.Collection();
 
 module.exports = client;

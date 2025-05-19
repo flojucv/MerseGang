@@ -10,6 +10,7 @@ const dirEventDiscord = "./Events/discord/";
 const dirCmdTwitch = "./Commands/twitch/";
 const dirEventTmi = "./Events/tmi/";
 const dirEventTwitchRequest = "./Events/twitchRequest/";
+const dirModalsDiscord = "./Modals/discord";
 
 
 console.log("┌────────────────────────────────┐\n│             COMMAND            │\n├────────────────────────────────┤");
@@ -40,6 +41,19 @@ fs.readdir(dirEventDiscord, (error, f) => {
         const event = f.split(".")[0];
         console.log(`│${logFile(event, 24)}│ ✔  │`)
         client.on(event, events.bind(null, client));
+    });
+    console.log("└───────────────────────────┴────┘");
+});
+
+fs.readdir(dirModalsDiscord, (error, f) => {
+    if (error) console.log(error);                                 
+    console.log(`┌────────────────────────────────┐\n│             MODALS             │\n├───────────────────────────┬────┤`);
+
+    f.forEach(async (f) => {
+        const modalFile = require(`${dirModalsDiscord}/${f}`);
+        const modal = f.split(".")[0];
+        console.log(`│${logFile(modal, 24)}│ ✔  │`)
+        client.modals.set(modal, modalFile);
     });
     console.log("└───────────────────────────┴────┘");
 });
